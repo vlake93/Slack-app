@@ -3,6 +3,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background-color: #541554;
 
   &-product {
     display: flex;
@@ -49,6 +50,10 @@
 .home-nav-right {
   & img {
     height: 2rem;
+  }
+
+  & p {
+    cursor: pointer;
   }
 
   &-buttons {

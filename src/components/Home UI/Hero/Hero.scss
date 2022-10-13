@@ -1,8 +1,17 @@
 .home-hero {
-  height: 94.25vh;
-  padding: 0 10rem;
+  // height: 92.3vh;
+  padding: 0 20rem;
   display: flex;
-  justify-content: flex-start;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #541554;
+}
+
+.hero-first-row {
+  height: 45vh;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
 }
 
@@ -11,7 +20,6 @@
   flex-direction: column;
   width: 70rem;
   gap: 5rem;
-  margin-bottom: 25rem;
 
   & h3 {
     color: white;
@@ -62,6 +70,11 @@
       align-items: center;
       background-color: #4285f4;
       color: white;
+      cursor: pointer;
+    }
+
+    & .hero-email-button {
+      cursor: pointer;
     }
   }
 }
@@ -69,4 +82,75 @@
 .google-signin-logo {
   height: 4.5rem;
   margin-right: 1rem;
+}
+
+.hero-video-container video {
+  height: 70rem;
+  width: 70rem;
+}
+
+.hero-second-row {
+  padding: 5rem;
+  height: 47.2vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 4rem;
+  background-color: #f4ede4;
+
+  & video {
+    height: 32rem;
+  }
+}
+
+.second-row-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+
+  & h3 {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-top: 3rem;
+  }
+}
+
+.second-row-images {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7.5rem;
+}
+
+.second-row-video-text {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 17.5rem;
+}
+
+.second-row-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  width: 38.5rem;
+
+  & h2 {
+    font-size: 4.5rem;
+    // letter-spacing: -1px;
+  }
+
+  & p {
+    font-size: 1.4rem;
+    font-weight: 600;
+  }
+
+  & h3 {
+    color: #0061a8;
+  }
 }
