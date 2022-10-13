@@ -52,16 +52,17 @@
 
   &-buttons {
     display: flex;
+
     & button {
       background-color: white;
       color: #541554;
       border: none;
-      // padding: 1rem 0.5rem;
       margin-right: 1rem;
       text-transform: uppercase;
       font-weight: 600;
       height: 5rem;
       width: 23rem;
+      cursor: pointer;
     }
 
     & .hero-google-button {

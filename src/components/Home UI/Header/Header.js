@@ -3,6 +3,7 @@ import "./Header.scss";
 import Glass from "../../../assets/magnifying.png";
 import Slack from "../../../assets/slack.png";
 import Down from "../../../assets/down.png";
+import { Link } from "react-router-dom";
 
 function Header() {
   return (
@@ -23,7 +24,9 @@ function Header() {
         </ul>
         <ul className="home-nav-right">
           <img src={Glass} />
-          <p>Sign in</p>
+          <Link className="nav-right-link" to="/signin">
+            Sign in
+          </Link>
           <div className="home-nav-right-buttons">
             <button className="sales-button">TALK TO SALES</button>
             <button className="free-button">TRY FOR FREE</button>

@@ -48,20 +48,19 @@
 }
 
 .home-nav-right {
+  z-index: 1;
+
   & img {
     height: 2rem;
-  }
-
-  & p {
     cursor: pointer;
   }
 
   &-buttons {
     display: flex;
     gap: 1rem;
+    cursor: pointer;
 
     & button {
-      font-size: 1.25rem;
       font-weight: 600;
       height: 4rem;
       width: 15rem;
@@ -74,12 +73,19 @@
       border: 2px solid #fff;
       background-color: transparent;
       color: #fff;
+      cursor: pointer;
     }
 
     & .free-button {
       border: none;
       background-color: #fff;
       color: #541554;
+      cursor: pointer;
     }
   }
+}
+
+.nav-right-link {
+  color: white;
+  text-decoration: none;
 }
