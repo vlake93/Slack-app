@@ -1,0 +1,15 @@
+.home-nav {
+  padding: 2rem 20rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.home-nav-left,
+.home-nav-right {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  color: white;
+  font-size: 1.5rem;
+}

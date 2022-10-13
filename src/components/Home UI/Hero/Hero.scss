@@ -1,0 +1,59 @@
+.home-hero {
+  height: 94.25vh;
+  padding: 0 10rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.home-hero-container {
+  display: flex;
+  flex-direction: column;
+  width: 70rem;
+  gap: 5rem;
+  margin-bottom: 25rem;
+}
+
+.hero-header {
+  color: white;
+
+  & h1 {
+    font-size: 6rem;
+  }
+
+  & p {
+    width: 55rem;
+    font-size: 2rem;
+    margin-top: 0.5rem;
+  }
+
+  & span {
+    color: #ecb22e;
+  }
+
+  &-buttons {
+    display: flex;
+    & button {
+      background-color: white;
+      color: #541554;
+      border: none;
+      padding: 1.5rem;
+      margin-right: 1rem;
+      text-transform: uppercase;
+      font-weight: 600;
+      width: 22rem;
+    }
+
+    & .hero-google-button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #4285f4;
+      color: white;
+    }
+  }
+}
+
+.google-signin-logo {
+  height: 3rem;
+}
