@@ -3,13 +3,78 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  &-product {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+  }
+}
+
+.slack-logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+
+  & p {
+    font-size: 2.4rem;
+    font-weight: 600;
+  }
+}
+
+.product-arrow {
+  max-height: 0.45rem;
+  width: 0.75rem;
+  margin-top: 0.5rem;
 }
 
 .home-nav-left,
 .home-nav-right {
   display: flex;
   align-items: center;
-  gap: 2rem;
+  gap: 3.5rem;
   color: white;
   font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.home-nav-left {
+  & img {
+    height: 2rem;
+  }
+}
+
+.home-nav-right {
+  & img {
+    height: 2rem;
+  }
+
+  &-buttons {
+    display: flex;
+    gap: 1rem;
+
+    & button {
+      font-size: 1.25rem;
+      font-weight: 600;
+      height: 4rem;
+      width: 15rem;
+      border-radius: 0.25rem;
+      border: none;
+      cursor: pointer;
+    }
+
+    & .sales-button {
+      border: 2px solid #fff;
+      background-color: transparent;
+      color: #fff;
+    }
+
+    & .free-button {
+      border: none;
+      background-color: #fff;
+      color: #541554;
+    }
+  }
 }

@@ -1,23 +1,33 @@
 import React from "react";
 import "./Header.scss";
+import Glass from "../../../assets/magnifying.png";
+import Slack from "../../../assets/slack.png";
+import Down from "../../../assets/down.png";
 
 function Header() {
   return (
     <div className="home-header">
       <nav className="home-nav">
         <ul className="home-nav-left">
-          <img />
-          <p>Product</p>
+          <div className="slack-logo-container">
+            <img src={Slack}></img>
+            <p>slack</p>
+          </div>
+          <p className="home-nav-product">
+            Product <img className="product-arrow" src={Down} />
+          </p>
           <p>Solutions</p>
           <p>Enterprise</p>
           <p>Resources</p>
           <p>Pricing</p>
         </ul>
         <ul className="home-nav-right">
-          <img />
-          <p></p>
-          <button>TALK TO SALES</button>
-          <button>TRY FOR FREE</button>
+          <img src={Glass} />
+          <p>Sign in</p>
+          <div className="home-nav-right-buttons">
+            <button className="sales-button">TALK TO SALES</button>
+            <button className="free-button">TRY FOR FREE</button>
+          </div>
         </ul>
       </nav>
     </div>

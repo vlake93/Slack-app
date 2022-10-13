@@ -15,14 +15,16 @@ function Hero() {
             work faster and more flexibly than ever before.
           </p>
         </div>
-        <div className="hero-header-buttons">
-          <button className="hero-email-button">SIGN UP WITH EMAIL</button>
-          <button className="hero-google-button">
-            <img src={Google} className="google-signin-logo" />
-            SIGN UP WITH GOOGLE
-          </button>
+        <div className="home-hero-cta">
+          <div className="hero-header-buttons">
+            <button className="hero-email-button">SIGN UP WITH EMAIL</button>
+            <button className="hero-google-button">
+              <img src={Google} className="google-signin-logo" />
+              SIGN UP WITH GOOGLE
+            </button>
+          </div>
+          <h3>Slack is free to try for as long as you'd like</h3>
         </div>
-        <h3>Slack is free to try for as long as you'd like</h3>
       </div>
     </div>
   );
