@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Google from "../../../assets/google sign.png";
 import Airbnb from "../../../assets/airbnb.png";
 import Nasa from "../../../assets/nasa.png";
@@ -26,7 +27,9 @@ function Hero() {
           </div>
           <div className="home-hero-cta">
             <div className="hero-header-buttons">
-              <button className="hero-email-button">SIGN UP WITH EMAIL</button>
+              <Link to="/signup" className="hero-signup">
+                SIGN UP WITH EMAIL
+              </Link>
               <button className="hero-google-button">
                 <img src={Google} className="google-signin-logo" />
                 SIGN UP WITH GOOGLE

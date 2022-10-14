@@ -11,7 +11,7 @@
   }
 
   & p {
-    font-size: 2rem;
+    font-size: 1.5rem;
 
     & span {
       font-weight: 600;
@@ -20,18 +20,31 @@
   }
 
   & button {
-    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
     font-weight: 600;
     margin-top: 2rem;
-    width: 50rem;
-    height: 5.5rem;
+    width: 40rem;
+    height: 4.5rem;
     background-color: white;
     border-radius: 0.5rem;
+    cursor: pointer;
+
+    & img {
+      height: 2rem;
+      margin-right: 1rem;
+    }
   }
 
   & .signin-google-button {
     color: #4285f4;
     border: 3px solid #4285f4;
+
+    & img {
+      height: 3rem;
+    }
   }
 
   & .signin-apple-button {
@@ -47,10 +60,10 @@
 
   & input {
     padding: 1rem;
-    font-size: 2rem;
+    font-size: 1.5rem;
     margin-top: 2rem;
-    width: 50rem;
-    height: 5.5rem;
+    width: 40rem;
+    height: 4.5rem;
     background-color: white;
     border-radius: 0.5rem;
     border: 1px solid #999;
@@ -84,12 +97,17 @@
 
 .signin-email-bottom-text {
   margin-top: 2rem;
-  width: 50rem;
-  padding: 2.5rem;
+  width: 40rem;
+  padding: 1rem 2.5rem;
   background-color: rgba(238, 238, 238, 0.5);
 
   & p {
     color: rgb(100, 100, 100);
+
+    & img {
+      margin-right: 0.5rem;
+      height: 1.5rem;
+    }
 
     & span {
       color: #1264a3;
@@ -103,6 +121,25 @@
   justify-content: center;
   align-items: center;
   gap: 2rem;
-  margin-top: 20rem;
+  margin-top: 34.5rem;
   color: #696969;
+
+  & p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+    & img {
+      margin-right: 0.5rem;
+      height: 1.5rem;
+    }
+  }
+
+  & .down {
+    margin-top: 0.35rem;
+    margin-left: 0.5rem;
+    height: 0.5rem;
+    width: 1rem;
+  }
 }

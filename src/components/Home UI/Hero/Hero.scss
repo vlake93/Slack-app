@@ -53,7 +53,8 @@
   &-buttons {
     display: flex;
 
-    & button {
+    & button,
+    & .hero-signup {
       background-color: white;
       color: #541554;
       border: none;
@@ -62,20 +63,21 @@
       font-weight: 600;
       height: 5rem;
       width: 23rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       cursor: pointer;
     }
 
     & .hero-google-button {
-      display: flex;
-      justify-content: center;
-      align-items: center;
       background-color: #4285f4;
       color: white;
       cursor: pointer;
     }
 
-    & .hero-email-button {
-      cursor: pointer;
+    & .hero-signup {
+      font-size: 1.5rem;
+      text-decoration: none;
     }
   }
 }

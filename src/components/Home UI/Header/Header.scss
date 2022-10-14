@@ -1,5 +1,5 @@
 .home-nav {
-  padding: 2rem 20rem;
+  padding: 2rem 35rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -87,5 +87,10 @@
 
 .nav-right-link {
   color: white;
+  font-weight: 600;
   text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
