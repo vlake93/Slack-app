@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import Logo from "../../assets/slack.svg";
 import Apple from "../../assets/apple.png";
@@ -8,6 +9,38 @@ import Down from "../../assets/down2.png";
 import "./SignUpPage.scss";
 
 function SignUpPage() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleRegister = (e) => {
+    e.preventDefault();
+    // setEmail("");
+    // setPassword("");
+
+    const credentials = {
+      email: email,
+      password: password,
+      password_confirmation: password,
+    };
+
+    fetch("http://206.189.91.54/api/v1/auth/", {
+      method: "POST",
+      body: JSON.stringify(credentials),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        response.headers.forEach((val, key) => {
+          console.log(key + "->" + val);
+        });
+        return response.json();
+      })
+      .then((result) => {
+        console.log(result);
+      });
+  };
+
   return (
     <div className="signup-page">
       <img className="signup-logo" src={Logo} />
@@ -15,17 +48,33 @@ function SignUpPage() {
       <p>
         We suggest using the <span>email address you use at work</span>
       </p>
-      <input
-        type="text"
-        className="signup-email"
-        placeholder="name@work-email.com"
-      />
-      <input
-        type="password"
-        className="signup-password"
-        placeholder="password"
-      />
-      <button className="signup-email-button">Continue</button>
+      <form>
+        <input
+          type="text"
+          className="signup-email"
+          placeholder="name@work-email.com"
+          value={email}
+          onChange={(e) => {
+            setEmail(e.target.value);
+          }}
+        />
+        <input
+          type="password"
+          className="signup-password"
+          placeholder="password"
+          value={password}
+          onChange={(e) => {
+            setPassword(e.target.value);
+          }}
+        />
+        <button
+          onClick={handleRegister}
+          type="submit"
+          className="signup-email-button"
+        >
+          Continue
+        </button>
+      </form>
       <div className="signup-or-container">
         <hr></hr>
         <p className="signup-or">OR</p>

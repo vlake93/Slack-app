@@ -1,0 +1,136 @@
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #121016;
+    height: 4.25vh;
+    width: 100%;
+
+    & input {
+      border: none;
+      padding: 0.5rem;
+      background-color: #38373c;
+      color: white;
+      border: 1px solid #aaa;
+      border-width: 1px;
+      border-color: rgba(131, 131, 131, 0.5);
+      outline: none;
+      border-radius: 0.5rem;
+      width: 72.5rem;
+      height: 3rem;
+
+      &::placeholder {
+        padding: 0.5rem;
+        font-size: 1.15rem;
+        font-weight: 600;
+        color: #ccc;
+      }
+    }
+
+    & .help-logo {
+      height: 1.9rem;
+    }
+
+    & img {
+      margin-right: 3rem;
+      height: 2.5rem;
+    }
+  }
+
+  &-search-container {
+    margin: 0 59rem;
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    & img {
+      position: absolute;
+      right: -1rem;
+    }
+
+    & .clock-logo {
+      position: relative;
+    }
+
+    & .slider-logo {
+      right: 1.5rem;
+      height: 2rem;
+    }
+
+    & .glass-logo {
+      height: 1.5rem;
+    }
+  }
+}
+
+.dashboard-ui {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &-sidebar {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    // justify-content: space-between;
+    align-items: center;
+    height: 95.65vh;
+    width: 12.75vw;
+    background-color: #19171d;
+    // border: 1px solid #aaa;
+    border-right: 1px solid rgba(131, 131, 131, 0.5);
+    border-width: 1px;
+    border-color: rgba(131, 131, 131, 0.5);
+
+    &-first,
+    &-second,
+    &-third,
+    &-fourth {
+      width: 12.75vw;
+      border: 1px solid #aaa;
+      border-right: none;
+      border-width: 1px;
+      border-color: rgba(131, 131, 131, 0.5);
+    }
+    &-second,
+    &-third {
+      color: #9a999c;
+    }
+
+    &-first {
+      color: #d1d2d3;
+      height: 4.75vh;
+    }
+
+    &-second {
+      border-top: none;
+      height: 10.25vh;
+    }
+
+    &-third {
+      border: none;
+      height: 76vh;
+    }
+
+    &-fourth {
+      border: none;
+      border-top: 1px solid;
+      border-width: 1px;
+      border-color: rgba(131, 131, 131, 0.5);
+      height: 4.75vh;
+      border-radius: 2rem;
+    }
+  }
+
+  &-main {
+    background-color: #1a1d21;
+    height: 95.65vh;
+    width: 87.25vw;
+  }
+}

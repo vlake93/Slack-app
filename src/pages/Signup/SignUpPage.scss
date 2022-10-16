@@ -5,6 +5,13 @@
   justify-content: center;
   align-items: center;
 
+  & form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
   & h1 {
     margin-top: 2rem;
     font-size: 4.25rem;
