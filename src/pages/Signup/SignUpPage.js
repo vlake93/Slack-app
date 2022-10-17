@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Logo from "../../assets/slack.svg";
 import Apple from "../../assets/apple.png";
 import Google from "../../assets/google sign.png";
@@ -11,6 +11,8 @@ import "./SignUpPage.scss";
 function SignUpPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -31,13 +33,18 @@ function SignUpPage() {
       },
     })
       .then((response) => {
-        response.headers.forEach((val, key) => {
-          console.log(key + "->" + val);
-        });
-        return response.json();
+        if (response.status === 422) {
+          setError("Email already taken");
+          return response.json();
+        } else {
+          return response.json();
+        }
       })
-      .then((result) => {
-        console.log(result);
+      .then((data) => {
+        console.log(data.status);
+        if (data.status !== "error") {
+          navigate("/");
+        }
       });
   };
 
@@ -49,6 +56,7 @@ function SignUpPage() {
         We suggest using the <span>email address you use at work</span>
       </p>
       <form>
+        <h1>{error}</h1>
         <input
           type="text"
           className="signup-email"

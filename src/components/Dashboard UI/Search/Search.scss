@@ -1,0 +1,11 @@
+.header-help-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.4rem;
+
+  & .help-logo {
+    margin: 0;
+    // margin-left: 1rem;
+  }
+}

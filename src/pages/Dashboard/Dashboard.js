@@ -1,10 +1,18 @@
 import React, { useEffect } from "react";
-import "./Dashboard.scss";
-import Clock from "../../assets/clock.png";
-import Slider from "../../assets/slider.png";
-import Glass from "../../assets/magnifying.png";
-import Help from "../../assets/help.png";
 import SignIn from "../SignIn/SignIn";
+import Search from "../../components/Dashboard UI/Search/Search";
+import "./Dashboard.scss";
+import line from "../../assets/line.png";
+import bold from "../../assets/bold2.png";
+import italic from "../../assets/italic.png";
+import strike from "../../assets/strike.png";
+import link from "../../assets/link.png";
+import ordered from "../../assets/ordered.png";
+import unordered from "../../assets/unordered.png";
+import blockquote from "../../assets/blockquote.png";
+import code from "../../assets/code.png";
+
+// import developer from "../../assets/developer.png";
 
 function Dashboard() {
   const accessToken = localStorage.getItem("access-token");
@@ -18,16 +26,19 @@ function Dashboard() {
       method: "GET",
       headers: {
         "access-token": accessToken,
-        client,
-        expiry,
-        uid,
+        client: client,
+        expiry: expiry,
+        uid: uid,
+        "Content-Type": "application/json",
       },
     })
       .then((response) => {
-        response.json();
+        return response.json();
       })
       .then((result) => {
-        console.log(result);
+        localStorage.setItem("Users", JSON.stringify(result));
+        // console.log(result);
+        // return result;
       });
   };
 
@@ -35,25 +46,16 @@ function Dashboard() {
     fetchUsers();
   });
 
+  const completeUsers = JSON.parse(localStorage.getItem("Users")) || [];
+
   if (signedIn) {
     return (
       <div className="dashboard">
-        <div className="dashboard-header">
-          <div className="dashboard-search-container">
-            <img className="clock-logo" src={Clock} />
-            <input type="text" placeholder="Search" />
-            <img className="slider-logo" src={Slider} />
-            <img className="glass-logo" src={Glass} />
-          </div>
-          <div className="header-help-container">
-            <img className="help-logo" src={Help} />
-            <img />
-          </div>
-        </div>
+        <Search></Search>
         <div className="dashboard-ui">
           <div className="dashboard-ui-sidebar">
             <div className="dashboard-ui-sidebar-first">
-              <h2>Vic</h2>
+              <h2>Workspace here</h2>
               <img />
             </div>
             <div className="dashboard-ui-sidebar-second">
@@ -75,14 +77,44 @@ function Dashboard() {
               <div>Direct messages</div>
             </div>
             <div className="dashboard-ui-sidebar-fourth">
-              <h2></h2>
+              <h2>Put channel here</h2>
               <img />
             </div>
           </div>
           <div className="dashboard-ui-main">
-            <div></div>
+            <div className="dashboard-ui-main-channel">
+              <h2>Put channel here</h2>
+            </div>
+            <div className="dashboard-ui-main-message"></div>
+            <div className="dashboard-ui-main-compose">
+              <div className="message-composer">
+                <div className="message-composer-upper">
+                  <img src={bold} />
+                  <img src={italic} />
+                  <img src={strike} />
+                  <img className="line" src={line} />
+                  <img src={link} />
+                  <img className="line" src={line} />
+                  <img className="ordered" src={ordered} />
+                  <img className="ordered" src={unordered} />
+                  <img className="line" src={line} />
+                  <img src={blockquote} />
+                  <img className="line" src={line} />
+                  <img src={code} />
+                  <img src={bold} />
+                </div>
+                <input type="text" placeholder="Message" />
+                <div>
+                  <img />
+                  <img />
+                  <img />
+                  <img />
+                  <img />
+                  <img />
+                </div>
+              </div>
+            </div>
           </div>
-          {/* <div className="dashboard-ui-thread"></div> */}
         </div>
       </div>
     );

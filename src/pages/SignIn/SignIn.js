@@ -19,10 +19,11 @@ function SignIn() {
   };
 
   let navigate = useNavigate();
-  const routeChange = () => {
-    let path = `/client`;
-    navigate(path);
-  };
+
+  // const routeChange = () => {
+  //   let path = `/client`;
+  //   navigate(path);
+  // };
 
   // const preventDefault = (e) => {
   //   e.preventDefault();
@@ -44,23 +45,32 @@ function SignIn() {
       },
     })
       .then((response) => {
-        response.headers.forEach((val, key) => {
-          console.log(key + "->" + val);
-          if (
-            key === "access-token" ||
-            key === "uid" ||
-            key === "expiry" ||
-            key === "client"
-          ) {
-            addCredentials(key, val);
-          }
-        });
-        return response.json();
+        if (response.status !== 401) {
+          response.headers.forEach((val, key) => {
+            if (
+              key === "access-token" ||
+              key === "uid" ||
+              key === "expiry" ||
+              key === "client"
+            ) {
+              addCredentials(key, val);
+            }
+          });
+          return response.json();
+        } else {
+          setError("Username/Password not found");
+        }
       })
       .then((result) => {
-        navigate("/client");
-        addCredentials("signedIn", 1);
-        console.log(result);
+        if (result.success !== false) {
+          addCredentials("signedIn", 1);
+          navigate("/client");
+        }
+
+        // if (result.status !== "error") {
+        // } else {
+        //   setError("Username/Password not found");
+        // }
       });
 
     // const accessToken = localStorage.getItem("access-token");
@@ -104,8 +114,8 @@ function SignIn() {
         <p className="signin-or">OR</p>
         <hr></hr>
       </div>
-      <div>{error}</div>
       <form>
+        <h1>{error}</h1>
         <input
           type="text"
           className="signin-email"

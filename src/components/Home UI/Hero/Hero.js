@@ -39,7 +39,7 @@ function Hero() {
           </div>
         </div>
         <div className="hero-video-container">
-          <video autoplay="true" muted loop>
+          <video autoPlay={true} muted loop>
             <source src={VidOne} type="video/webm" />
           </video>
         </div>
@@ -57,7 +57,7 @@ function Hero() {
           </div>
         </div>
         <div className="second-row-video-text">
-          <video autoplay="true" muted loop>
+          <video autoPlay={true} muted loop>
             <source src={VidTwo} type="video/webm" />
           </video>
           <div className="second-row-text">
