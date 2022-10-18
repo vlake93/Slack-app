@@ -11,6 +11,7 @@ import ordered from "../../assets/ordered.png";
 import unordered from "../../assets/unordered.png";
 import blockquote from "../../assets/blockquote.png";
 import code from "../../assets/code.png";
+import Sidebar from "../../components/Dashboard UI/Sidebar/Sidebar";
 
 // import developer from "../../assets/developer.png";
 
@@ -37,10 +38,13 @@ function Dashboard() {
       })
       .then((result) => {
         localStorage.setItem("Users", JSON.stringify(result));
-        // console.log(result);
-        // return result;
+        console.log(result);
+        return result;
       });
   };
+
+  const userData = fetchUsers();
+  console.log("this is", userData);
 
   useEffect(() => {
     fetchUsers();
@@ -53,37 +57,10 @@ function Dashboard() {
       <div className="dashboard">
         <Search></Search>
         <div className="dashboard-ui">
-          <div className="dashboard-ui-sidebar">
-            <div className="dashboard-ui-sidebar-first">
-              <h2>Workspace here</h2>
-              <img />
-            </div>
-            <div className="dashboard-ui-sidebar-second">
-              <h2>
-                <img />
-                Threads
-              </h2>
-              <h2>
-                <img />
-                Mentions & reactions
-              </h2>
-              <h2>
-                <img />
-                More
-              </h2>
-            </div>
-            <div className="dashboard-ui-sidebar-third">
-              <div>Channels</div>
-              <div>Direct messages</div>
-            </div>
-            <div className="dashboard-ui-sidebar-fourth">
-              <h2>Put channel here</h2>
-              <img />
-            </div>
-          </div>
+          <Sidebar></Sidebar>
           <div className="dashboard-ui-main">
             <div className="dashboard-ui-main-channel">
-              <h2>Put channel here</h2>
+              <h2>Put channel/user here</h2>
             </div>
             <div className="dashboard-ui-main-message"></div>
             <div className="dashboard-ui-main-compose">
