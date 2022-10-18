@@ -84,7 +84,6 @@
     height: 95.65vh;
     width: 12.75vw;
     background-color: #19171d;
-    // border: 1px solid #aaa;
     border-right: 1px solid rgba(131, 131, 131, 0.2);
     border-width: 1px;
     border-color: rgba(131, 131, 131, 0.2);
@@ -154,6 +153,7 @@
 
     &-message {
       height: 76vh;
+      position: relative;
     }
 
     &-compose {

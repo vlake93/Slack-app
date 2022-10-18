@@ -11,12 +11,17 @@ function Search() {
     { user: "Vic", email: "vic@vic.com" },
     { user: "pot", email: "pot@pot.com" },
   ];
+  const [modal, setModal] = useState(false);
+
+  const uid = localStorage.getItem("uid");
 
   const completeUsers = JSON.parse(localStorage.getItem("Users")) || [];
 
   const [users, setUsers] = useState(completeUsers);
   const [search, setSearch] = useState("");
   const [filteredUsers, setFilteredUsers] = useState([]);
+
+  const handleReceiver = () => {};
 
   const handleSearch = (e) => {
     console.log(search);
@@ -40,9 +45,13 @@ function Search() {
           onChange={handleSearch}
         />
         <ul className="search-list">
-          {mockUser.map((user) => {
+          {completeUsers.data.map((user) => {
             if (user.email.startsWith(search) & (search !== "")) {
-              return <li>{user.email}</li>;
+              return (
+                <li onClick={handleReceiver} key={user.id}>
+                  {user.email}
+                </li>
+              );
             }
           })}
         </ul>

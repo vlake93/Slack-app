@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
 import "./Sidebar.scss";
 
 function Sidebar() {
@@ -27,7 +28,7 @@ function Sidebar() {
         return response.json();
       })
       .then((result) => {
-        localStorage.setItem("Channels", JSON.stringify(result));
+        // localStorage.setItem("Channels", JSON.stringify(result));
         console.log(result);
         return result;
       });
@@ -40,8 +41,8 @@ function Sidebar() {
   const userChannels = JSON.parse(localStorage.getItem("Channels")) || [];
   console.log("LocalChannel", userChannels);
 
-  const channel = fetchUserChannels();
-  console.log(channel);
+  // const channel = fetchUserChannels();
+  // console.log(channel);
 
   return (
     <div className="dashboard-ui-sidebar">
@@ -71,10 +72,10 @@ function Sidebar() {
         <div>
           <h2>Channels</h2>
           <ul className="channel-list">
-            {mockChannel.map((channel) => {
+            {userChannels.data.map((channel) => {
               return (
                 <li>
-                  <h3>{channel.name}</h3>
+                  <Link className="channel">{channel.name}</Link>
                 </li>
               );
             })}
