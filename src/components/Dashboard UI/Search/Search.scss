@@ -16,6 +16,7 @@
   position: absolute;
   top: 2.9rem;
   right: 0;
+
   width: 73.5rem;
   background-color: white;
   overflow-y: scroll;
@@ -24,5 +25,11 @@
     list-style: none;
     font-size: 1.5rem;
     overflow-y: hidden;
+    z-index: 1000;
+    cursor: pointer;
+
+    &:hover {
+      background-color: red;
+    }
   }
 }

@@ -6,32 +6,19 @@ import Glass from "../../../assets/magnifying.png";
 import Help from "../../../assets/help.png";
 import user from "../../../assets/user-logo.png";
 
-function Search() {
-  const mockUser = [
-    { user: "Vic", email: "vic@vic.com" },
-    { user: "pot", email: "pot@pot.com" },
-  ];
-  const [modal, setModal] = useState(false);
-
-  const uid = localStorage.getItem("uid");
-
+function Search({ onForce, parKey }) {
   const completeUsers = JSON.parse(localStorage.getItem("Users")) || [];
 
-  const [users, setUsers] = useState(completeUsers);
   const [search, setSearch] = useState("");
-  const [filteredUsers, setFilteredUsers] = useState([]);
-
-  const handleReceiver = () => {};
 
   const handleSearch = (e) => {
     console.log(search);
     setSearch(e.target.value);
-    // setFilteredUsers(
-    //   users.filter((user) => {
-    //     user.email.startsWith(search);
-    //   })
-    // );
-    // console.log(filteredUsers);
+  };
+
+  const handleReceiver = (user) => {
+    localStorage.setItem("receiver", JSON.stringify(user));
+    setSearch("");
   };
 
   return (
@@ -46,9 +33,14 @@ function Search() {
         />
         <ul className="search-list">
           {completeUsers.data.map((user) => {
-            if (user.email.startsWith(search) & (search !== "")) {
+            if (user.email.startsWith(search) && search !== "") {
               return (
-                <li onClick={handleReceiver} key={user.id}>
+                <li
+                  onClick={() => {
+                    onForce();
+                    handleReceiver(user);
+                  }}
+                >
                   {user.email}
                 </li>
               );

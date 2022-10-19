@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import SignIn from "../SignIn/SignIn";
 import Search from "../../components/Dashboard UI/Search/Search";
 import "./Dashboard.scss";
@@ -8,6 +8,8 @@ import Message from "../../components/Dashboard UI/Message/Message";
 // import developer from "../../assets/developer.png";
 
 function Dashboard() {
+  const [rerenderer, setRerenderer] = useState("");
+
   const accessToken = localStorage.getItem("access-token");
   const client = localStorage.getItem("client");
   const expiry = localStorage.getItem("expiry");
@@ -29,10 +31,19 @@ function Dashboard() {
         return response.json();
       })
       .then((result) => {
-        // localStorage.setItem("Users", JSON.stringify(result));
+        localStorage.setItem("Users", JSON.stringify(result));
         // console.log(result);
         return result;
       });
+  };
+
+  const forceRemove = () => {
+    localStorage.removeItem("receiver");
+    setRerenderer(Math.random());
+  };
+
+  const forceReplace = () => {
+    setRerenderer(Math.random());
   };
 
   useEffect(() => {
@@ -41,25 +52,23 @@ function Dashboard() {
       const userData = await fetchUsers();
       console.log("this is", userData);
     })();
-
     // another way
-    const asyncFunc = async () => {
-      const userData = await fetchUsers();
-      console.log("this is", userData);
-    };
-
-    asyncFunc();
+    // const asyncFunc = async () => {
+    //   const userData = await fetchUsers();
+    //   console.log("this is", userData);
+    // };
+    // asyncFunc();
   });
 
-  const completeUsers = JSON.parse(localStorage.getItem("Users")) || [];
+  const completeUsers = JSON.parse(localStorage.getItem("Users")) || {};
 
   if (signedIn) {
     return (
       <div className="dashboard">
-        <Search></Search>
+        <Search onForce={forceReplace} parKey={rerenderer}></Search>
         <div className="dashboard-ui">
           <Sidebar></Sidebar>
-          <Message></Message>
+          <Message onForce={forceRemove} parKey={rerenderer}></Message>
         </div>
       </div>
     );

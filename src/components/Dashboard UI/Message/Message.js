@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./Message.scss";
 import line from "../../../assets/line.png";
 import bold from "../../../assets/bold2.png";
@@ -11,11 +11,17 @@ import blockquote from "../../../assets/blockquote.png";
 import code from "../../../assets/code.png";
 import LogoutModal from "../../../components/Dashboard UI/Logout Modal/LogoutModal";
 
-function Message() {
+function Message({ onForce, parKey }) {
+  // const [forceRender, setForceRender] = useState("");
+
   const accessToken = localStorage.getItem("access-token");
   const client = localStorage.getItem("client");
   const expiry = localStorage.getItem("expiry");
   const uid = localStorage.getItem("uid");
+
+  // const body = {
+
+  // }
 
   const fetchMessage = () => {
     fetch(
@@ -46,10 +52,20 @@ function Message() {
     fetchMessage();
   });
 
+  // const removeReceiver = () => {
+  //   localStorage.removeItem("receiver");
+  //   setForceRender(Math.random());
+  // };
+
+  const receiver = JSON.parse(localStorage.getItem("receiver")) || {};
+
   return (
     <div className="dashboard-ui-main">
-      <div className="dashboard-ui-main-channel">
-        <h2>Put channel/user here</h2>
+      <div className="dashboard-ui-main-receiver">
+        <h2 key={parKey}>
+          {receiver.uid}
+          {receiver.uid && <button onClick={onForce}>x</button>}
+        </h2>
       </div>
       <div className="dashboard-ui-main-message">
         <LogoutModal></LogoutModal>

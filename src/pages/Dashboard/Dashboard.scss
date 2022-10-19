@@ -141,7 +141,11 @@
     width: 87.25vw;
     color: #9a999c;
 
-    &-channel {
+    &-receiver {
+      padding: 1rem;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
       height: 4.75vh;
       width: 100%;
       border: none;
