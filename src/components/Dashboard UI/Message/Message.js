@@ -12,20 +12,18 @@ import code from "../../../assets/code.png";
 import LogoutModal from "../../../components/Dashboard UI/Logout Modal/LogoutModal";
 
 function Message({ onForce, parKey }) {
-  // const [forceRender, setForceRender] = useState("");
-
   const accessToken = localStorage.getItem("access-token");
   const client = localStorage.getItem("client");
   const expiry = localStorage.getItem("expiry");
   const uid = localStorage.getItem("uid");
 
-  // const body = {
+  const receiver = JSON.parse(localStorage.getItem("receiver")) || {};
 
-  // }
+  const currentReceiver = receiver.id || {};
 
   const fetchMessage = () => {
     fetch(
-      "http://206.189.91.54/api/v1/messages?receiver_id=1&receiver_class=User",
+      `http://206.189.91.54/api/v1/messages?receiver_id=${currentReceiver}&receiver_class=User`,
       {
         method: "GET",
         headers: {
@@ -35,40 +33,40 @@ function Message({ onForce, parKey }) {
           uid: uid,
           "Content-Type": "application/json",
         },
-        receiver_id: "2783",
-        receiver_class: "User",
       }
     )
       .then((response) => {
         return response.json();
       })
       .then((data) => {
-        console.log("message data", data);
+        console.log("message data", data.data);
+        localStorage.setItem("messages", JSON.stringify(data.data || []));
         return data;
       });
   };
+
+  const currentMessage = JSON.parse(localStorage.getItem("messages")) || [];
 
   useEffect(() => {
     fetchMessage();
   });
 
-  // const removeReceiver = () => {
-  //   localStorage.removeItem("receiver");
-  //   setForceRender(Math.random());
-  // };
-
-  const receiver = JSON.parse(localStorage.getItem("receiver")) || {};
-
   return (
     <div className="dashboard-ui-main">
       <div className="dashboard-ui-main-receiver">
-        <h2 key={parKey}>
-          {receiver.uid}
+        <div className="receiver-display" key={parKey}>
+          <h2>TO:</h2>
+          <h2>{receiver.uid}</h2>
           {receiver.uid && <button onClick={onForce}>x</button>}
-        </h2>
+        </div>
       </div>
       <div className="dashboard-ui-main-message">
         <LogoutModal></LogoutModal>
+        <div>
+          {currentMessage.map((message) => {
+            return <div>{message.body}</div>;
+          })}
+        </div>
       </div>
       <div className="dashboard-ui-main-compose">
         <div className="message-composer">

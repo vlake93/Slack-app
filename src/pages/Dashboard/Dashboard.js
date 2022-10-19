@@ -5,8 +5,6 @@ import "./Dashboard.scss";
 import Sidebar from "../../components/Dashboard UI/Sidebar/Sidebar";
 import Message from "../../components/Dashboard UI/Message/Message";
 
-// import developer from "../../assets/developer.png";
-
 function Dashboard() {
   const [rerenderer, setRerenderer] = useState("");
 
@@ -32,7 +30,6 @@ function Dashboard() {
       })
       .then((result) => {
         localStorage.setItem("Users", JSON.stringify(result));
-        // console.log(result);
         return result;
       });
   };
