@@ -3,10 +3,10 @@ import SignIn from "../SignIn/SignIn";
 import Search from "../../components/Dashboard UI/Search/Search";
 import "./Dashboard.scss";
 import Sidebar from "../../components/Dashboard UI/Sidebar/Sidebar";
-import Message from "../../components/Dashboard UI/Message/Message";
+import Message from "../../components/Dashboard UI/Main/Message";
 
 function Dashboard() {
-  const [rerenderer, setRerenderer] = useState("");
+  const [rerender, setRerender] = useState("");
 
   const accessToken = localStorage.getItem("access-token");
   const client = localStorage.getItem("client");
@@ -36,11 +36,11 @@ function Dashboard() {
 
   const forceRemove = () => {
     localStorage.removeItem("receiver");
-    setRerenderer(Math.random());
+    setRerender(Math.random());
   };
 
   const forceReplace = () => {
-    setRerenderer(Math.random());
+    setRerender(Math.random());
   };
 
   useEffect(() => {
@@ -57,15 +57,17 @@ function Dashboard() {
     // asyncFunc();
   });
 
-  const completeUsers = JSON.parse(localStorage.getItem("Users")) || {};
-
   if (signedIn) {
     return (
       <div className="dashboard">
-        <Search onForce={forceReplace} parKey={rerenderer}></Search>
+        <Search handleReplace={forceReplace} forceKey={rerender}></Search>
         <div className="dashboard-ui">
-          <Sidebar></Sidebar>
-          <Message onForce={forceRemove} parKey={rerenderer}></Message>
+          <Sidebar handleReplace={forceReplace}></Sidebar>
+          <Message
+            handleRemove={forceRemove}
+            handleReplace={forceReplace}
+            forceKey={rerender}
+          ></Message>
         </div>
       </div>
     );

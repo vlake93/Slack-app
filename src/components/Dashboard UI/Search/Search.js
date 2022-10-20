@@ -6,8 +6,8 @@ import Glass from "../../../assets/magnifying.png";
 import Help from "../../../assets/help.png";
 import user from "../../../assets/user-logo.png";
 
-function Search({ onForce, parKey }) {
-  const completeUsers = JSON.parse(localStorage.getItem("Users")) || [];
+function Search({ handleReplace }) {
+  const completeUsers = JSON.parse(localStorage.getItem("Users")) || [1, 2];
 
   const [search, setSearch] = useState("");
 
@@ -37,7 +37,7 @@ function Search({ onForce, parKey }) {
               return (
                 <li
                   onClick={() => {
-                    onForce();
+                    handleReplace();
                     handleReceiver(user);
                   }}
                 >
@@ -59,3 +59,6 @@ function Search({ onForce, parKey }) {
 }
 
 export default Search;
+
+// localStorage.setItem("Users", JSON.stringify([]));
+// localStorage.setItem("Channels", JSON.stringify([]));

@@ -10,6 +10,14 @@ import "./SignIn.scss";
 import { Link, useNavigate } from "react-router-dom";
 
 function SignIn() {
+  // if (!localStorage.getItem("Users")) {
+  //   localStorage.setItem("Users", JSON.parse([]));
+  // }
+
+  if (!localStorage.getItem("Channels")) {
+    localStorage.setItem("Channels", JSON.stringify({ data: [] }));
+  }
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -85,6 +93,10 @@ function SignIn() {
     //   setError("Incorrect email/password");
     // }
   };
+
+  const signedIn = JSON.parse(localStorage.getItem("signedIn"));
+
+  // if ()
 
   return (
     <div className="signin-page">

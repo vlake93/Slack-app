@@ -1,0 +1,60 @@
+.dashboard-ui-main-receiver {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  & .receiver-display {
+    padding: 1rem;
+    border-radius: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #222529;
+    height: 3rem;
+    display: flex;
+    gap: 1rem;
+
+    & button {
+      height: 3rem;
+      width: 3rem;
+      border: none;
+      background-color: transparent;
+      color: white;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #333;
+      }
+    }
+  }
+}
+
+.main-messages {
+  position: absolute;
+  bottom: 0;
+  padding: 1rem 2rem;
+}
+
+.main-message {
+  display: flex;
+  padding: 1rem;
+
+  & div {
+    margin-left: 0.5rem;
+  }
+
+  & img {
+    height: 2rem;
+    padding: 0;
+  }
+  & h2 {
+    margin-left: 1rem;
+  }
+}
+
+.channel-ui {
+  height: 4.75vh;
+  border-bottom: 1px solid;
+  border-width: 1px;
+  border-color: rgba(131, 131, 131, 0.2);
+}

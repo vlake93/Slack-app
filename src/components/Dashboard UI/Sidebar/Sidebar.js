@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Sidebar.scss";
 
-function Sidebar() {
+function Sidebar({ handleReplace }) {
   const mockChannel = [
     { channel: 3868, name: "Channel Vic" },
     { channel: 3869, name: "Channel Nice" },
@@ -28,10 +28,18 @@ function Sidebar() {
         return response.json();
       })
       .then((result) => {
-        // localStorage.setItem("Channels", JSON.stringify(result));
-        console.log(result);
+        console.log("result", result);
+        if (result.errors === "No available channels.") {
+          localStorage.setItem("Channels", JSON.stringify({ data: [] }));
+        } else {
+          localStorage.setItem("Channels", JSON.stringify(result) || []);
+        }
         return result;
       });
+  };
+
+  const handleChannel = (user) => {
+    localStorage.setItem("receiver", JSON.stringify(user));
   };
 
   useEffect(() => {
@@ -40,9 +48,6 @@ function Sidebar() {
 
   const userChannels = JSON.parse(localStorage.getItem("Channels")) || [];
   console.log("LocalChannel", userChannels);
-
-  // const channel = fetchUserChannels();
-  // console.log(channel);
 
   return (
     <div className="dashboard-ui-sidebar">
@@ -75,7 +80,15 @@ function Sidebar() {
             {userChannels.data.map((channel) => {
               return (
                 <li>
-                  <Link className="channel">{channel.name}</Link>
+                  <h2
+                    onClick={() => {
+                      handleReplace();
+                      handleChannel(channel);
+                    }}
+                    className="channel"
+                  >
+                    {channel.name}
+                  </h2>
                 </li>
               );
             })}

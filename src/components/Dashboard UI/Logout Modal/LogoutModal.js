@@ -13,6 +13,9 @@ function LogoutModal() {
 
   const handleSignOut = () => {
     localStorage.removeItem("signedIn");
+    localStorage.removeItem("receiver");
+    localStorage.removeItem("messages");
+    localStorage.removeItem("Channels");
     navigate("/");
   };
 
