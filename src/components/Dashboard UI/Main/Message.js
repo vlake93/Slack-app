@@ -32,34 +32,54 @@ function Message({ handleRemove, handleReplace, forceKey }) {
   // }
 
   const fetchMessage = () => {
-    fetch(
-      `http://206.189.91.54/api/v1/messages?receiver_id=${currentReceiver}&receiver_class=User`,
-      {
-        method: "GET",
-        headers: {
-          "access-token": accessToken,
-          client: client,
-          expiry: expiry,
-          uid: uid,
-          "Content-Type": "application/json",
-        },
-      }
-    )
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        console.log("message data", data.data);
-        localStorage.setItem("messages", JSON.stringify(data.data || []));
-        return data;
-      });
+    if (receiver.owner_id) {
+      fetch(
+        `http://206.189.91.54/api/v1/messages?receiver_id=${currentReceiver}&receiver_class=Channel`,
+        {
+          method: "GET",
+          headers: {
+            "access-token": accessToken,
+            client: client,
+            expiry: expiry,
+            uid: uid,
+            "Content-Type": "application/json",
+          },
+        }
+      )
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          console.log("message data", data.data);
+          localStorage.setItem("messages", JSON.stringify(data.data || []));
+          return data;
+        });
+    } else {
+      fetch(
+        `http://206.189.91.54/api/v1/messages?receiver_id=${currentReceiver}&receiver_class=User`,
+        {
+          method: "GET",
+          headers: {
+            "access-token": accessToken,
+            client: client,
+            expiry: expiry,
+            uid: uid,
+            "Content-Type": "application/json",
+          },
+        }
+      )
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          console.log("message data", data.data);
+          localStorage.setItem("messages", JSON.stringify(data.data || []));
+          return data;
+        });
+    }
   };
 
   const currentMessage = JSON.parse(localStorage.getItem("messages")) || [];
-
-  useEffect(() => {
-    fetchMessage();
-  });
 
   const messageBody = {
     receiver_id: receiver.id,
@@ -88,42 +108,59 @@ function Message({ handleRemove, handleReplace, forceKey }) {
       });
   };
 
+  useEffect(() => {
+    fetchMessage();
+    // handleReplace();
+  });
+
+  // useEffect(() => {
+  //   // fetchMessage();
+  //   handleReplace();
+  // }, [message]);
+
   return (
     <div className="dashboard-ui-main">
       <div className="dashboard-ui-main-receiver">
         <div className="receiver-display" key={forceKey}>
-          <h2>TO:</h2>
-          <h2>{receiver.uid || receiver.name}</h2>
-          {(receiver.uid && (
-            <button
-              onClick={() => {
-                handleRemove();
-              }}
-            >
-              X
-            </button>
-          )) ||
-            (receiver.name && (
-              <div>
-                <button
-                  onClick={() => {
-                    handleRemove();
-                  }}
-                >
-                  X
-                </button>
-                <h2></h2>
-              </div>
-            ))}
+          <div className="receiver-container">
+            <h2>TO:</h2>
+            <h2>{receiver.uid || receiver.name}</h2>
+            {(receiver.uid && (
+              <button
+                onClick={() => {
+                  handleRemove();
+                }}
+              >
+                X
+              </button>
+            )) ||
+              (receiver.name && (
+                <div className="channel-receiver">
+                  <div>
+                    <button
+                      onClick={() => {
+                        handleRemove();
+                      }}
+                    >
+                      X
+                    </button>
+                  </div>
+                  <div className="channel-detail">
+                    <h2>Channel members total</h2>
+                    <button>add members</button>
+                  </div>
+                </div>
+              ))}
+          </div>
+          {/* <div className="channel-ui">sjkdhfjkds</div> */}
         </div>
       </div>
-      <div className="channel-ui">sjkdhfjkds</div>
       <div className="dashboard-ui-main-message">
         <LogoutModal></LogoutModal>
-        <div className="main-messages" key={forceKey}>
+        <div className="main-messages">
           {currentMessage.map((message) => {
             return (
-              <div className="main-message">
+              <div key={forceKey} className="main-message">
                 {/* <img src={imageSet} /> */}
                 <div>
                   <h3>{message.sender.email}</h3>

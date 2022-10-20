@@ -43,19 +43,24 @@ function Dashboard() {
     setRerender(Math.random());
   };
 
+  // useEffect(() => {
+  //   forceReplace();
+  // });
+
   useEffect(() => {
     //another way
     (async () => {
       const userData = await fetchUsers();
       console.log("this is", userData);
     })();
-    // another way
-    // const asyncFunc = async () => {
-    //   const userData = await fetchUsers();
-    //   console.log("this is", userData);
-    // };
-    // asyncFunc();
   });
+
+  //   // another way
+  //   // const asyncFunc = async () => {
+  //   //   const userData = await fetchUsers();
+  //   //   console.log("this is", userData);
+  //   // };
+  //   // asyncFunc();
 
   if (signedIn) {
     return (

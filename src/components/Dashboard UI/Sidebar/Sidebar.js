@@ -1,13 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./Sidebar.scss";
 
 function Sidebar({ handleReplace }) {
-  const mockChannel = [
-    { channel: 3868, name: "Channel Vic" },
-    { channel: 3869, name: "Channel Nice" },
-  ];
-
+  const [channelName, setChannelName] = useState("");
+  const [members, setMembers] = useState([]);
   const accessToken = localStorage.getItem("access-token");
   const client = localStorage.getItem("client");
   const expiry = localStorage.getItem("expiry");
@@ -23,6 +20,37 @@ function Sidebar({ handleReplace }) {
         uid: uid,
         "Content-Type": "application/json",
       },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((result) => {
+        console.log("result", result);
+        if (result.errors === "No available channels.") {
+          localStorage.setItem("Channels", JSON.stringify({ data: [] }));
+        } else {
+          localStorage.setItem("Channels", JSON.stringify(result) || []);
+        }
+        return result;
+      });
+  };
+
+  const createChannelBody = {
+    name: channelName,
+    user_ids: members,
+  };
+
+  const createChannel = () => {
+    fetch("http://206.189.91.54/api/v1/channels", {
+      method: "POST",
+      headers: {
+        "access-token": accessToken,
+        client: client,
+        expiry: expiry,
+        uid: uid,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(createChannelBody),
     })
       .then((response) => {
         return response.json();
@@ -76,6 +104,7 @@ function Sidebar({ handleReplace }) {
       <div className="dashboard-ui-sidebar-third">
         <div>
           <h2>Channels</h2>
+          <button>Create channel</button>
           <ul className="channel-list">
             {userChannels.data.map((channel) => {
               return (

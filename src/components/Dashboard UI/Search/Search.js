@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Search.scss";
 import Clock from "../../../assets/clock.png";
 import Slider from "../../../assets/slider.png";
@@ -6,7 +6,7 @@ import Glass from "../../../assets/magnifying.png";
 import Help from "../../../assets/help.png";
 import user from "../../../assets/user-logo.png";
 
-function Search({ handleReplace }) {
+function Search({ handleReplace, forceKey }) {
   const completeUsers = JSON.parse(localStorage.getItem("Users")) || [1, 2];
 
   const [search, setSearch] = useState("");
@@ -21,9 +21,19 @@ function Search({ handleReplace }) {
     setSearch("");
   };
 
+  // useEffect(() => {
+  //   handleReplace();
+  // });
+
   return (
     <div className="dashboard-header">
-      <form className="dashboard-search-container">
+      <form
+        onSubmit={() => {
+          handleReplace();
+          window.location.reload();
+        }}
+        className="dashboard-search-container"
+      >
         <img className="clock-logo" src={Clock} />
         <input
           type="text"
@@ -36,6 +46,7 @@ function Search({ handleReplace }) {
             if (user.email.startsWith(search) && search !== "") {
               return (
                 <li
+                  // key={forceKey}
                   onClick={() => {
                     handleReplace();
                     handleReceiver(user);
