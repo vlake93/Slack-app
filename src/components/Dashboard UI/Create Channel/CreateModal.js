@@ -27,7 +27,7 @@ function CreateModal({ createModal, toggleCreate, forceKey }) {
 
   const createChannelBody = {
     name: channelName,
-    user_ids: added,
+    user_ids: idList,
   };
 
   const createChannel = () => {

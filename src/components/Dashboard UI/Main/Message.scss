@@ -63,7 +63,7 @@
 .channel-ui {
   display: flex;
   padding: 1.5rem;
-  // justify-content: ;
+
   align-items: center;
   height: 4.75vh;
   border-bottom: 1px solid;
@@ -72,24 +72,37 @@
 }
 
 .receiver-container {
+  width: 180rem;
+  position: relative;
   padding: 1rem;
   border-radius: 1rem;
   height: 3rem;
   background-color: #222529;
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 1rem;
+
+  .receiver-name {
+    display: flex;
+    flex-shrink: 0;
+    gap: 1rem;
+  }
 }
 
 .channel-receiver {
   width: 160rem;
   display: flex;
-  justify-content: space-between;
 }
 
 .channel-detail {
+  right: 1rem;
   display: flex;
+  position: absolute;
+  align-items: center;
   gap: 1rem;
   margin-right: 3rem;
+
+  & button {
+    width: 20rem;
+  }
 }

@@ -13,13 +13,7 @@ import LogoutModal from "../Logout Modal/LogoutModal";
 import main from "../../../assets/main-user.png";
 import receiver from "../../../assets/receiver.png";
 
-function Message({
-  handleRemove,
-  handleReplace,
-  forceKey,
-  // fetchMessage,
-  // messageList,
-}) {
+function Message({ handleRemove, handleReplace, forceKey }) {
   const [message, setMessage] = useState("");
   const [messageList, setMessageList] = useState("");
   const accessToken = localStorage.getItem("access-token");
@@ -39,9 +33,9 @@ function Message({
   //   const imageSet = "receiver";
   // }
 
-  const fetchMessage = () => {
+  const fetchMessage = async () => {
     if (receiver.owner_id) {
-      fetch(
+      return await fetch(
         `http://206.189.91.54/api/v1/messages?receiver_id=${currentReceiver}&receiver_class=Channel`,
         {
           method: "GET",
@@ -65,7 +59,7 @@ function Message({
           return data;
         });
     } else {
-      fetch(
+      return await fetch(
         `http://206.189.91.54/api/v1/messages?receiver_id=${currentReceiver}&receiver_class=User`,
         {
           method: "GET",
@@ -140,7 +134,8 @@ function Message({
         <div className="receiver-display" key={forceKey}>
           <div className="receiver-container">
             <h2>TO:</h2>
-            <h2>{receiver.uid || receiver.name}</h2>
+            <h2 className="receiver-name">{receiver.uid || receiver.name}</h2>
+
             {(receiver.uid && (
               <button
                 onClick={() => {

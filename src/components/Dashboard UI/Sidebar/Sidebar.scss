@@ -1,8 +1,12 @@
 .channel-list {
   list-style: none;
 
+  & li:hover {
+    color: white;
+  }
+
   & li:last-child {
-    margin-bottom: 1rem;
+    margin-bottom: 3rem;
   }
 
   & .channel {
