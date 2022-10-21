@@ -22,8 +22,8 @@ function CreateModal({ createModal, toggleCreate, forceKey }) {
   const emailList = added.map((id) => {
     return id.uid;
   });
-  console.log(idList);
-  console.log(emailList);
+  // console.log(idList);
+  // console.log(emailList);
 
   const createChannelBody = {
     name: channelName,
@@ -47,11 +47,11 @@ function CreateModal({ createModal, toggleCreate, forceKey }) {
       })
       .then((result) => {
         console.log("result", result);
-        if (result.errors === "No available channels.") {
-          localStorage.setItem("Channels", JSON.stringify({ data: [] }));
-        } else {
-          localStorage.setItem("Channels", JSON.stringify(result) || []);
-        }
+        // if (result.errors === "No available channels.") {
+        //   localStorage.setItem("Channels", JSON.stringify({ data: [] }));
+        // } else {
+        //   localStorage.setItem("Channels", JSON.stringify(result) || []);
+        // }
         return result;
       });
   };

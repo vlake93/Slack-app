@@ -28,7 +28,7 @@ function Message({
   const uid = localStorage.getItem("uid");
 
   const receiver = JSON.parse(localStorage.getItem("receiver")) || {};
-  console.log("receiver.id", receiver.id);
+  // console.log("receiver.id", receiver.id);
 
   const currentReceiver = receiver.id || {};
 
@@ -58,9 +58,9 @@ function Message({
           return response.json();
         })
         .then((data) => {
-          console.log("message data", data.data);
+          // console.log("message data", data.data);
           setMessageList(data.data);
-          console.log("message state", messageList);
+          // console.log("message state", messageList);
           // localStorage.setItem("messages", JSON.stringify(data.data || []));
           return data;
         });
@@ -82,9 +82,9 @@ function Message({
           return response.json();
         })
         .then((data) => {
-          console.log("message data", data.data);
+          // console.log("message data", data.data);
           setMessageList(data.data);
-          console.log("message state", messageList);
+          // console.log("message state", messageList);
           // localStorage.setItem("messages", JSON.stringify(data.data || []));
           return data;
         });
@@ -117,10 +117,12 @@ function Message({
         return response.json();
       })
       .then((data) => {
-        // console.log("message data", data.data);
+        console.log("message data", data.data);
         return data;
       });
   };
+
+  const channelNumber = JSON.parse(localStorage.getItem("channelMembers"));
 
   useEffect(() => {
     fetchMessage();
@@ -160,7 +162,7 @@ function Message({
                     </button>
                   </div>
                   <div className="channel-detail">
-                    <h2>Channel members total</h2>
+                    <h2 key={forceKey}>{channelNumber.length}</h2>
                     <button>add members</button>
                   </div>
                 </div>
@@ -215,6 +217,7 @@ function Message({
               value={message}
               onChange={(e) => {
                 setMessage(e.target.value);
+                console.log(message);
                 fetchMessage();
                 // console.log("messageesesaews", messageList);
               }}

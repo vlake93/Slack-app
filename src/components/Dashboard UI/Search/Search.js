@@ -12,7 +12,7 @@ function Search({ handleReplace, forceKey }) {
   const [search, setSearch] = useState("");
 
   const handleSearch = (e) => {
-    console.log(search);
+    // console.log(search);
     setSearch(e.target.value);
   };
 

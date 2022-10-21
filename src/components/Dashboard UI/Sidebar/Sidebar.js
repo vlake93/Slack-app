@@ -5,13 +5,14 @@ import CreateModal from "../Create Channel/CreateModal";
 
 function Sidebar({ handleReplace }) {
   const [createModal, setCreateModal] = useState(false);
+  const [channel, setChannel] = useState({ data: [] });
   const accessToken = localStorage.getItem("access-token");
   const client = localStorage.getItem("client");
   const expiry = localStorage.getItem("expiry");
   const uid = localStorage.getItem("uid");
 
-  const fetchUserChannels = () => {
-    fetch("http://206.189.91.54/api/v1/channels", {
+  const fetchUserChannels = async () => {
+    return await fetch("http://206.189.91.54/api/v1/channels", {
       method: "GET",
       headers: {
         "access-token": accessToken,
@@ -25,12 +26,17 @@ function Sidebar({ handleReplace }) {
         return response.json();
       })
       .then((result) => {
-        console.log("result", result);
-        if (result.errors === "No available channels.") {
-          localStorage.setItem("Channels", JSON.stringify({ data: [] }));
-        } else {
-          localStorage.setItem("Channels", JSON.stringify(result) || []);
+        if (!result.errors) {
+          setChannel(result);
         }
+        // console.log(channel);
+        // console.log(!result.errors);
+        // console.log(channel);
+        // if (result.errors === "No available channels.") {
+        //   localStorage.setItem("Channels", JSON.stringify({ data: [] }));
+        // } else {
+        //   localStorage.setItem("Channels", JSON.stringify(result) || []);
+        // }
         return result;
       });
   };
@@ -38,18 +44,53 @@ function Sidebar({ handleReplace }) {
   const handleChannel = (user) => {
     localStorage.setItem("receiver", JSON.stringify(user));
     localStorage.setItem("channelID", JSON.stringify(user.id));
+    // localStorage.setItem("channelName", JSON.stringify(user));
+  };
+
+  const channelID = JSON.parse(localStorage.getItem("channelID"));
+
+  const fetchChannelDetails = () => {
+    fetch(`http://206.189.91.54/api/v1/channels/${channelID}`, {
+      method: "GET",
+      headers: {
+        "access-token": accessToken,
+        client: client,
+        expiry: expiry,
+        uid: uid,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((result) => {
+        localStorage.setItem(
+          "channelMembers",
+          JSON.stringify(result.data.channel_members)
+        );
+        console.log(result.data.channel_members);
+        return result;
+      });
   };
 
   useEffect(() => {
-    fetchUserChannels();
+    //another way
+    (async () => {
+      await fetchUserChannels();
+      // console.log("this is");
+    })();
   });
+
+  // useEffect(() => {
+  //   fetchUserChannels();
+  // });
 
   const toggleCreate = () => {
     setCreateModal(!createModal);
   };
 
-  const userChannels = JSON.parse(localStorage.getItem("Channels")) || [];
-  console.log("LocalChannel", userChannels);
+  // const userChannels = JSON.parse(localStorage.getItem("Channels")) || [];
+  // console.log("LocalChannel", userChannels);
 
   return (
     <div className="dashboard-ui-sidebar">
@@ -86,12 +127,13 @@ function Sidebar({ handleReplace }) {
               toggleCreate={toggleCreate}
             ></CreateModal>
 
-            {userChannels.data.map((channel) => {
+            {channel.data.map((channel) => {
               return (
                 <li>
                   <h2
                     onClick={() => {
                       handleChannel(channel);
+                      fetchChannelDetails();
                       handleReplace();
                     }}
                     className="channel"
