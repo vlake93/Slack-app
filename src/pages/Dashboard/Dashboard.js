@@ -14,6 +14,66 @@ function Dashboard() {
   const uid = localStorage.getItem("uid");
   const signedIn = localStorage.getItem("signedIn");
 
+  // const receiver = JSON.parse(localStorage.getItem("receiver")) || {};
+
+  // // const [message, setMessage] = useState("");
+  // const [messageList, setMessageList] = useState("");
+
+  // const currentReceiver = receiver.id || {};
+
+  // const fetchMessage = () => {
+  //   if (receiver.owner_id) {
+  //     fetch(
+  //       `http://206.189.91.54/api/v1/messages?receiver_id=${currentReceiver}&receiver_class=Channel`,
+  //       {
+  //         method: "GET",
+  //         headers: {
+  //           "access-token": accessToken,
+  //           client: client,
+  //           expiry: expiry,
+  //           uid: uid,
+  //           "Content-Type": "application/json",
+  //         },
+  //       }
+  //     )
+  //       .then((response) => {
+  //         return response.json();
+  //       })
+  //       .then((data) => {
+  //         console.log("message data", data.data);
+  //         setMessageList(data.data);
+  //         console.log("message state", messageList);
+  //         // localStorage.setItem("messages", JSON.stringify(data.data || []));
+  //         return data;
+  //       });
+  //   } else {
+  //     fetch(
+  //       `http://206.189.91.54/api/v1/messages?receiver_id=${currentReceiver}&receiver_class=User`,
+  //       {
+  //         method: "GET",
+  //         headers: {
+  //           "access-token": accessToken,
+  //           client: client,
+  //           expiry: expiry,
+  //           uid: uid,
+  //           "Content-Type": "application/json",
+  //         },
+  //       }
+  //     )
+  //       .then((response) => {
+  //         return response.json();
+  //       })
+  //       .then((data) => {
+  //         console.log("message data", data.data);
+  //         setMessageList(data.data);
+  //         console.log("message state", messageList);
+  //         // localStorage.setItem("messages", JSON.stringify(data.data || []));
+  //         return data;
+  //       });
+  //   }
+  // };
+  ///////////////////////////////////////////////////////////////////////////////
+
   const fetchUsers = async () => {
     return await fetch("http://206.189.91.54/api/v1/users", {
       method: "GET",
@@ -55,25 +115,20 @@ function Dashboard() {
     })();
   });
 
-  //   // another way
-  //   // const asyncFunc = async () => {
-  //   //   const userData = await fetchUsers();
-  //   //   console.log("this is", userData);
-  //   // };
-  //   // asyncFunc();
-
   if (signedIn) {
     return (
       <div className="dashboard">
-        <Search handleReplace={forceReplace} forceKey={rerender}></Search>
         <div className="dashboard-ui">
-          <Sidebar handleReplace={forceReplace}></Sidebar>
           <Message
             handleRemove={forceRemove}
             handleReplace={forceReplace}
             forceKey={rerender}
+            // messageList={messageList} //////////////////
+            // fetchMessage={fetchMessage} ////////////////
           ></Message>
+          <Sidebar handleReplace={forceReplace}></Sidebar>
         </div>
+        <Search handleReplace={forceReplace} forceKey={rerender}></Search>
       </div>
     );
   } else {

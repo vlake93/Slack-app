@@ -70,15 +70,15 @@ function SignIn() {
         }
       })
       .then((result) => {
+        // console.log("signin", result.data.id);
         if (result.success !== false) {
-          addCredentials("signedIn", 1);
+          addCredentials("signedIn", JSON.stringify(result.data));
           navigate("/client");
         }
-
-        // if (result.status !== "error") {
-        // } else {
-        //   setError("Username/Password not found");
-        // }
+        if (result.status !== "error") {
+        } else {
+          setError("Username/Password not found");
+        }
       });
 
     // const accessToken = localStorage.getItem("access-token");

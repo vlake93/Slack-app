@@ -16,12 +16,13 @@
   position: absolute;
   top: 2.9rem;
   right: 0;
-  max-height: 5rem;
+  max-height: 10rem;
   width: 73.5rem;
   background-color: white;
   overflow-y: scroll;
 
   & li {
+    padding: 0.5rem;
     list-style: none;
     font-size: 1.5rem;
     overflow-y: hidden;

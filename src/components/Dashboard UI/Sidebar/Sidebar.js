@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./Sidebar.scss";
+import CreateModal from "../Create Channel/CreateModal";
 
 function Sidebar({ handleReplace }) {
-  const [channelName, setChannelName] = useState("");
-  const [members, setMembers] = useState([]);
+  const [createModal, setCreateModal] = useState(false);
   const accessToken = localStorage.getItem("access-token");
   const client = localStorage.getItem("client");
   const expiry = localStorage.getItem("expiry");
@@ -35,44 +35,18 @@ function Sidebar({ handleReplace }) {
       });
   };
 
-  const createChannelBody = {
-    name: channelName,
-    user_ids: members,
-  };
-
-  const createChannel = () => {
-    fetch("http://206.189.91.54/api/v1/channels", {
-      method: "POST",
-      headers: {
-        "access-token": accessToken,
-        client: client,
-        expiry: expiry,
-        uid: uid,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(createChannelBody),
-    })
-      .then((response) => {
-        return response.json();
-      })
-      .then((result) => {
-        console.log("result", result);
-        if (result.errors === "No available channels.") {
-          localStorage.setItem("Channels", JSON.stringify({ data: [] }));
-        } else {
-          localStorage.setItem("Channels", JSON.stringify(result) || []);
-        }
-        return result;
-      });
-  };
-
   const handleChannel = (user) => {
     localStorage.setItem("receiver", JSON.stringify(user));
+    localStorage.setItem("channelID", JSON.stringify(user.id));
   };
 
   useEffect(() => {
     fetchUserChannels();
   });
+
+  const toggleCreate = () => {
+    setCreateModal(!createModal);
+  };
 
   const userChannels = JSON.parse(localStorage.getItem("Channels")) || [];
   console.log("LocalChannel", userChannels);
@@ -103,16 +77,22 @@ function Sidebar({ handleReplace }) {
       </div>
       <div className="dashboard-ui-sidebar-third">
         <div>
+          {/* <div className="channel-header"> */}
           <h2>Channels</h2>
-          <button>Create channel</button>
+          {/* </div> */}
           <ul className="channel-list">
+            <CreateModal
+              createModal={createModal}
+              toggleCreate={toggleCreate}
+            ></CreateModal>
+
             {userChannels.data.map((channel) => {
               return (
                 <li>
                   <h2
                     onClick={() => {
-                      handleReplace();
                       handleChannel(channel);
+                      handleReplace();
                     }}
                     className="channel"
                   >

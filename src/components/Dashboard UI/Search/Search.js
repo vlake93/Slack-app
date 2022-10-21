@@ -7,7 +7,7 @@ import Help from "../../../assets/help.png";
 import user from "../../../assets/user-logo.png";
 
 function Search({ handleReplace, forceKey }) {
-  const completeUsers = JSON.parse(localStorage.getItem("Users")) || [1, 2];
+  const completeUsers = JSON.parse(localStorage.getItem("Users")) || [];
 
   const [search, setSearch] = useState("");
 
@@ -30,7 +30,7 @@ function Search({ handleReplace, forceKey }) {
       <form
         onSubmit={() => {
           handleReplace();
-          window.location.reload();
+          // window.location.reload();
         }}
         className="dashboard-search-container"
       >
@@ -48,8 +48,8 @@ function Search({ handleReplace, forceKey }) {
                 <li
                   // key={forceKey}
                   onClick={() => {
-                    handleReplace();
                     handleReceiver(user);
+                    handleReplace();
                   }}
                 >
                   {user.email}

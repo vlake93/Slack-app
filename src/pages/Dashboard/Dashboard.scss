@@ -1,6 +1,6 @@
 .dashboard {
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   justify-content: center;
   align-items: center;
 
@@ -72,6 +72,7 @@
 
 .dashboard-ui {
   display: flex;
+  flex-direction: row-reverse;
   align-items: center;
   justify-content: center;
 
@@ -161,6 +162,7 @@
     }
 
     &-compose {
+      margin-top: 4rem;
       padding: 0.5rem 2rem 2rem 2rem;
       display: flex;
       justify-content: center;

@@ -13,14 +13,22 @@ import LogoutModal from "../Logout Modal/LogoutModal";
 import main from "../../../assets/main-user.png";
 import receiver from "../../../assets/receiver.png";
 
-function Message({ handleRemove, handleReplace, forceKey }) {
+function Message({
+  handleRemove,
+  handleReplace,
+  forceKey,
+  // fetchMessage,
+  // messageList,
+}) {
   const [message, setMessage] = useState("");
+  const [messageList, setMessageList] = useState("");
   const accessToken = localStorage.getItem("access-token");
   const client = localStorage.getItem("client");
   const expiry = localStorage.getItem("expiry");
   const uid = localStorage.getItem("uid");
 
   const receiver = JSON.parse(localStorage.getItem("receiver")) || {};
+  console.log("receiver.id", receiver.id);
 
   const currentReceiver = receiver.id || {};
 
@@ -51,7 +59,9 @@ function Message({ handleRemove, handleReplace, forceKey }) {
         })
         .then((data) => {
           console.log("message data", data.data);
-          localStorage.setItem("messages", JSON.stringify(data.data || []));
+          setMessageList(data.data);
+          console.log("message state", messageList);
+          // localStorage.setItem("messages", JSON.stringify(data.data || []));
           return data;
         });
     } else {
@@ -73,19 +83,23 @@ function Message({ handleRemove, handleReplace, forceKey }) {
         })
         .then((data) => {
           console.log("message data", data.data);
-          localStorage.setItem("messages", JSON.stringify(data.data || []));
+          setMessageList(data.data);
+          console.log("message state", messageList);
+          // localStorage.setItem("messages", JSON.stringify(data.data || []));
           return data;
         });
     }
   };
 
-  const currentMessage = JSON.parse(localStorage.getItem("messages")) || [];
+  // const currentMessage = JSON.parse(localStorage.getItem("messages")) || [];
 
   const messageBody = {
     receiver_id: receiver.id,
     receiver_class: "User",
     body: message,
   };
+
+  const presentMessage = messageList || [];
 
   const sendMessage = () => {
     fetch(`http://206.189.91.54/api/v1/messages`, {
@@ -110,7 +124,7 @@ function Message({ handleRemove, handleReplace, forceKey }) {
 
   useEffect(() => {
     fetchMessage();
-    // handleReplace();
+    //   // handleReplace();
   });
 
   // useEffect(() => {
@@ -158,10 +172,10 @@ function Message({ handleRemove, handleReplace, forceKey }) {
       <div className="dashboard-ui-main-message">
         <LogoutModal></LogoutModal>
         <div className="main-messages">
-          {currentMessage.map((message) => {
+          {presentMessage.map((message) => {
             return (
-              <div key={forceKey} className="main-message">
-                {/* <img src={imageSet} /> */}
+              <div className="main-message">
+                <img src={main} />
                 <div>
                   <h3>{message.sender.email}</h3>
                   <h2>{message.body}</h2>
@@ -201,6 +215,8 @@ function Message({ handleRemove, handleReplace, forceKey }) {
               value={message}
               onChange={(e) => {
                 setMessage(e.target.value);
+                fetchMessage();
+                // console.log("messageesesaews", messageList);
               }}
               placeholder="Message"
             />
