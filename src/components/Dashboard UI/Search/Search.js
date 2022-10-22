@@ -4,7 +4,7 @@ import Clock from "../../../assets/clock.png";
 import Slider from "../../../assets/slider.png";
 import Glass from "../../../assets/magnifying.png";
 import Help from "../../../assets/help.png";
-import user from "../../../assets/user-logo.png";
+import user from "../../../assets/default.png";
 
 function Search({ handleReplace, forceKey }) {
   const completeUsers = JSON.parse(localStorage.getItem("Users")) || [];

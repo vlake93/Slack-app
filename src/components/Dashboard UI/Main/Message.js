@@ -12,26 +12,26 @@ import code from "../../../assets/code.png";
 import LogoutModal from "../Logout Modal/LogoutModal";
 import main from "../../../assets/main-user.png";
 import receiver from "../../../assets/receiver.png";
+import AddMember from "../Add Member/AddMember";
 
 function Message({ handleRemove, handleReplace, forceKey }) {
   const [message, setMessage] = useState("");
   const [messageList, setMessageList] = useState("");
+  const [memberCount, setMemberCount] = useState(0);
+  const [memberModal, setMemberModal] = useState(false);
+  // const []
   const accessToken = localStorage.getItem("access-token");
   const client = localStorage.getItem("client");
   const expiry = localStorage.getItem("expiry");
   const uid = localStorage.getItem("uid");
 
   const receiver = JSON.parse(localStorage.getItem("receiver")) || {};
-  // console.log("receiver.id", receiver.id);
 
   const currentReceiver = receiver.id || {};
 
-  // let imageSet = main;
-  // if (message.sender.email === receiver.id) {
-  //   const imageSet = "main";
-  // } else {
-  //   const imageSet = "receiver";
-  // }
+  const toggleMember = () => {
+    setMemberModal(!memberModal);
+  };
 
   const fetchMessage = async () => {
     if (receiver.owner_id) {
@@ -52,10 +52,8 @@ function Message({ handleRemove, handleReplace, forceKey }) {
           return response.json();
         })
         .then((data) => {
-          // console.log("message data", data.data);
           setMessageList(data.data);
-          // console.log("message state", messageList);
-          // localStorage.setItem("messages", JSON.stringify(data.data || []));
+
           return data;
         });
     } else {
@@ -76,57 +74,82 @@ function Message({ handleRemove, handleReplace, forceKey }) {
           return response.json();
         })
         .then((data) => {
-          // console.log("message data", data.data);
           setMessageList(data.data);
-          // console.log("message state", messageList);
-          // localStorage.setItem("messages", JSON.stringify(data.data || []));
+
           return data;
         });
     }
   };
 
-  // const currentMessage = JSON.parse(localStorage.getItem("messages")) || [];
-
-  const messageBody = {
+  const userBody = {
     receiver_id: receiver.id,
     receiver_class: "User",
+    body: message,
+  };
+
+  const channelBody = {
+    receiver_id: receiver.id,
+    receiver_class: "Channel",
     body: message,
   };
 
   const presentMessage = messageList || [];
 
   const sendMessage = () => {
-    fetch(`http://206.189.91.54/api/v1/messages`, {
-      method: "POST",
-      headers: {
-        "access-token": accessToken,
-        client: client,
-        expiry: expiry,
-        uid: uid,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(messageBody),
-    })
-      .then((response) => {
-        return response.json();
+    if (receiver.owner_id) {
+      fetch(`http://206.189.91.54/api/v1/messages`, {
+        method: "POST",
+        headers: {
+          "access-token": accessToken,
+          client: client,
+          expiry: expiry,
+          uid: uid,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(channelBody),
       })
-      .then((data) => {
-        console.log("message data", data.data);
-        return data;
-      });
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          console.log(data);
+          console.log("message data", data.data);
+          return data;
+        });
+    } else {
+      fetch(`http://206.189.91.54/api/v1/messages`, {
+        method: "POST",
+        headers: {
+          "access-token": accessToken,
+          client: client,
+          expiry: expiry,
+          uid: uid,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userBody),
+      })
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          console.log(data);
+          console.log("message data", data.data);
+          return data;
+        });
+    }
   };
 
   const channelNumber = JSON.parse(localStorage.getItem("channelMembers"));
 
+  if (channelNumber) {
+    // setMemberCount(channelBody);
+  }
+
   useEffect(() => {
     fetchMessage();
-    //   // handleReplace();
-  });
 
-  // useEffect(() => {
-  //   // fetchMessage();
-  //   handleReplace();
-  // }, [message]);
+    //   // handleReplace();
+  }, [currentReceiver]);
 
   return (
     <div className="dashboard-ui-main">
@@ -135,7 +158,6 @@ function Message({ handleRemove, handleReplace, forceKey }) {
           <div className="receiver-container">
             <h2>TO:</h2>
             <h2 className="receiver-name">{receiver.uid || receiver.name}</h2>
-
             {(receiver.uid && (
               <button
                 onClick={() => {
@@ -158,16 +180,19 @@ function Message({ handleRemove, handleReplace, forceKey }) {
                   </div>
                   <div className="channel-detail">
                     <h2 key={forceKey}>{channelNumber.length}</h2>
-                    <button>add members</button>
+                    <AddMember
+                      toggleMember={toggleMember}
+                      memberModal={memberModal}
+                    ></AddMember>
                   </div>
                 </div>
               ))}
           </div>
-          {/* <div className="channel-ui">sjkdhfjkds</div> */}
         </div>
       </div>
       <div className="dashboard-ui-main-message">
         <LogoutModal></LogoutModal>
+
         <div className="main-messages">
           {presentMessage.map((message) => {
             return (
@@ -205,6 +230,7 @@ function Message({ handleRemove, handleReplace, forceKey }) {
               sendMessage();
               setMessage("");
               handleReplace();
+              fetchMessage();
             }}
           >
             <input
@@ -214,7 +240,6 @@ function Message({ handleRemove, handleReplace, forceKey }) {
                 setMessage(e.target.value);
                 console.log(message);
                 fetchMessage();
-                // console.log("messageesesaews", messageList);
               }}
               placeholder="Message"
             />

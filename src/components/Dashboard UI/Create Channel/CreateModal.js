@@ -22,8 +22,6 @@ function CreateModal({ createModal, toggleCreate, forceKey }) {
   const emailList = added.map((id) => {
     return id.uid;
   });
-  // console.log(idList);
-  // console.log(emailList);
 
   const createChannelBody = {
     name: channelName,
@@ -47,11 +45,7 @@ function CreateModal({ createModal, toggleCreate, forceKey }) {
       })
       .then((result) => {
         console.log("result", result);
-        // if (result.errors === "No available channels.") {
-        //   localStorage.setItem("Channels", JSON.stringify({ data: [] }));
-        // } else {
-        //   localStorage.setItem("Channels", JSON.stringify(result) || []);
-        // }
+
         return result;
       });
   };
@@ -113,6 +107,7 @@ function CreateModal({ createModal, toggleCreate, forceKey }) {
                           key={forceKey}
                           onClick={() => {
                             chooseMember(user);
+
                             setMember("");
                             console.log("Added", added);
                           }}
@@ -127,7 +122,12 @@ function CreateModal({ createModal, toggleCreate, forceKey }) {
                   onClick={(e) => {
                     e.preventDefault();
                     createChannel();
+                    localStorage.setItem(
+                      "channelDependency",
+                      JSON.stringify(Math.random())
+                    );
                     setAdded([channelCreator]);
+                    toggleCreate();
                   }}
                 >
                   Create channel

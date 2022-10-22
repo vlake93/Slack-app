@@ -123,8 +123,6 @@ function Dashboard() {
             handleRemove={forceRemove}
             handleReplace={forceReplace}
             forceKey={rerender}
-            // messageList={messageList} //////////////////
-            // fetchMessage={fetchMessage} ////////////////
           ></Message>
           <Sidebar handleReplace={forceReplace}></Sidebar>
         </div>

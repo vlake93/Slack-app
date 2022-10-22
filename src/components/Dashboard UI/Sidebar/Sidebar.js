@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import "./Sidebar.scss";
 import CreateModal from "../Create Channel/CreateModal";
 
@@ -29,14 +28,6 @@ function Sidebar({ handleReplace }) {
         if (!result.errors) {
           setChannel(result);
         }
-        // console.log(channel);
-        // console.log(!result.errors);
-        // console.log(channel);
-        // if (result.errors === "No available channels.") {
-        //   localStorage.setItem("Channels", JSON.stringify({ data: [] }));
-        // } else {
-        //   localStorage.setItem("Channels", JSON.stringify(result) || []);
-        // }
         return result;
       });
   };
@@ -44,10 +35,12 @@ function Sidebar({ handleReplace }) {
   const handleChannel = (user) => {
     localStorage.setItem("receiver", JSON.stringify(user));
     localStorage.setItem("channelID", JSON.stringify(user.id));
-    // localStorage.setItem("channelName", JSON.stringify(user));
   };
 
   const channelID = JSON.parse(localStorage.getItem("channelID"));
+  const channelDependency = JSON.parse(
+    localStorage.getItem("channelDependency")
+  );
 
   const fetchChannelDetails = () => {
     fetch(`http://206.189.91.54/api/v1/channels/${channelID}`, {
@@ -74,23 +67,15 @@ function Sidebar({ handleReplace }) {
   };
 
   useEffect(() => {
-    //another way
     (async () => {
       await fetchUserChannels();
-      // console.log("this is");
     })();
-  });
-
-  // useEffect(() => {
-  //   fetchUserChannels();
-  // });
+  }, [, channelDependency]);
+  // ADD on load or add channel only
 
   const toggleCreate = () => {
     setCreateModal(!createModal);
   };
-
-  // const userChannels = JSON.parse(localStorage.getItem("Channels")) || [];
-  // console.log("LocalChannel", userChannels);
 
   return (
     <div className="dashboard-ui-sidebar">
@@ -118,9 +103,7 @@ function Sidebar({ handleReplace }) {
       </div>
       <div className="dashboard-ui-sidebar-third">
         <div>
-          {/* <div className="channel-header"> */}
           <h2>Channels</h2>
-          {/* </div> */}
           <ul className="channel-list">
             <CreateModal
               createModal={createModal}

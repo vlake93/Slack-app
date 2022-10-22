@@ -6,6 +6,17 @@ import Down from "../../../assets/down.png";
 import { Link } from "react-router-dom";
 
 function Header() {
+  const signedIn = localStorage.getItem("signedIn");
+
+  const check = () => {
+    if (signedIn) {
+      return "/client";
+    } else {
+      return "/signin";
+    }
+  };
+  console.log(check());
+
   return (
     <div className="home-header">
       <nav className="home-nav">
@@ -24,7 +35,7 @@ function Header() {
         </ul>
         <ul className="home-nav-right">
           <img src={Glass} />
-          <Link className="nav-right-link" to="/signin">
+          <Link to={check()} className="nav-right-link">
             Sign in
           </Link>
           <div className="home-nav-right-buttons">
