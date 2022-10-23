@@ -1,6 +1,11 @@
 import React, { useEffect, useState, useReducer } from "react";
 import "./Sidebar.scss";
 import CreateModal from "../Create Channel/CreateModal";
+import chat from "../../../assets/chat.png";
+import at from "../../../assets/at.png";
+import plane from "../../../assets/plane.png";
+import dots from "../../../assets/dots.png";
+import lock from "../../../assets/lock.png";
 
 function Sidebar({ handleReplace }) {
   const [reducerValue, forceUpdate] = useReducer((x) => x + 1, 0);
@@ -97,19 +102,19 @@ function Sidebar({ handleReplace }) {
       </div>
       <div className="dashboard-ui-sidebar-second">
         <h2>
-          <img />
+          <img src={chat} />
           Threads
         </h2>
         <h2>
-          <img />
+          <img className="at" src={at} />
           Mentions & reactions
         </h2>
         <h2>
-          <img />
+          <img src={plane} />
           Drafts & sent
         </h2>
         <h2>
-          <img />
+          <img src={dots} />
           More
         </h2>
       </div>
@@ -126,6 +131,7 @@ function Sidebar({ handleReplace }) {
             {channel.data.map((channel) => {
               return (
                 <li>
+                  <img src={lock} />
                   <h2
                     onClick={() => {
                       handleChannel(channel);

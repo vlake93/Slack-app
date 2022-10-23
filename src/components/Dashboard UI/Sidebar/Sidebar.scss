@@ -1,8 +1,14 @@
 .channel-list {
   list-style: none;
 
-  & li:hover {
-    color: white;
+  & img {
+    height: 2rem;
+  }
+
+  & li {
+    margin-left: 2rem;
+    display: flex;
+    gap: 0.5rem;
   }
 
   & li:last-child {
@@ -11,7 +17,7 @@
 
   & .channel {
     font-size: 1.5rem;
-    margin-left: 1rem;
+    // margin-left: 1rem;
     margin-bottom: 1rem;
     cursor: pointer;
     text-decoration: none;
@@ -38,5 +44,24 @@
     // cursor: pointer;
     align-self: center;
     margin-bottom: 0.25rem;
+  }
+}
+
+.dashboard-ui-sidebar-second {
+  & .at {
+    height: 1.5rem;
+  }
+
+  & h2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.5rem;
+    font-weight: 400;
+  }
+
+  & img {
+    height: 2rem;
   }
 }

@@ -42,8 +42,6 @@ function AddMember({ toggleMember, memberModal }) {
         return response.json();
       })
       .then((result) => {
-        console.log("result", result);
-
         return result;
       });
   };
@@ -58,7 +56,6 @@ function AddMember({ toggleMember, memberModal }) {
         className="channel-add"
         onClick={() => {
           toggleMember();
-          console.log(member);
         }}
       >
         <img src={add} />
@@ -74,11 +71,13 @@ function AddMember({ toggleMember, memberModal }) {
             }}
           >
             <h1>Add member</h1>
-            <label>Search members</label>
-            <input type="text" value={member} onChange={handleSearchMember} />
+            <div className="search-member">
+              <label>Search members</label>
+              <input type="text" value={member} onChange={handleSearchMember} />
+            </div>
             <div>
               <h2>Member added:</h2>
-              <h2>{added.uid}</h2>
+              <h2 className="added-member">{added.uid}</h2>
             </div>
             <ul className="add-list">
               {completeUsers.data.map((user) => {
@@ -88,8 +87,6 @@ function AddMember({ toggleMember, memberModal }) {
                       onClick={() => {
                         chooseMember(user);
                         setMember("");
-                        console.log("Added", added);
-                        console.log("AddedID", added.id);
                       }}
                     >
                       {user.email}

@@ -44,7 +44,6 @@ function CreateModal({ createModal, toggleCreate, forceKey, forceUpdate }) {
         return response.json();
       })
       .then((result) => {
-        console.log("result", result);
         forceUpdate();
         return result;
       });
@@ -107,7 +106,6 @@ function CreateModal({ createModal, toggleCreate, forceKey, forceUpdate }) {
                           onClick={() => {
                             chooseMember(user);
                             setMember("");
-                            console.log("Added", added);
                           }}
                         >
                           {user.email}
@@ -120,10 +118,6 @@ function CreateModal({ createModal, toggleCreate, forceKey, forceUpdate }) {
                   onClick={(e) => {
                     e.preventDefault();
                     createChannel();
-                    // localStorage.setItem(
-                    //   "channelDependency",
-                    //   JSON.stringify(Math.random())
-                    // );
                     setAdded([channelCreator]);
                     toggleCreate();
                   }}

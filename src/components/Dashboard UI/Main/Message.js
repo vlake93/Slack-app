@@ -117,8 +117,6 @@ function Message({ handleRemove, forceKey }) {
           return response.json();
         })
         .then((data) => {
-          console.log(data);
-          console.log("message data", data.data);
           return data;
         });
     } else {
@@ -137,8 +135,6 @@ function Message({ handleRemove, forceKey }) {
           return response.json();
         })
         .then((data) => {
-          console.log(data);
-          console.log("message data", data.data);
           return data;
         });
     }
@@ -186,7 +182,6 @@ function Message({ handleRemove, forceKey }) {
                     ></ChannelMember>
                     <img className="channel-detail-line" src={line} />
                     <AddMember
-                      // memberCount={memberCount}
                       memberState={memberState}
                       toggleMember={toggleMember}
                       memberModal={memberModal}
@@ -246,8 +241,6 @@ function Message({ handleRemove, forceKey }) {
               value={message}
               onChange={(e) => {
                 setMessage(e.target.value);
-                console.log(message);
-                // fetchMessage();
               }}
               placeholder="Message"
             />
