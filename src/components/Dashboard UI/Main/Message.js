@@ -13,13 +13,14 @@ import LogoutModal from "../Logout Modal/LogoutModal";
 import main from "../../../assets/main-user.png";
 import receiver from "../../../assets/receiver.png";
 import AddMember from "../Add Member/AddMember";
+import ChannelMember from "../Channel Member/ChannelMember";
 
-function Message({ handleRemove, handleReplace, forceKey }) {
+function Message({ handleRemove, forceKey }) {
   const [message, setMessage] = useState("");
   const [messageList, setMessageList] = useState("");
-  const [memberCount, setMemberCount] = useState(0);
+  const [memberCount, setMemberCount] = useState("");
   const [memberModal, setMemberModal] = useState(false);
-  // const []
+
   const accessToken = localStorage.getItem("access-token");
   const client = localStorage.getItem("client");
   const expiry = localStorage.getItem("expiry");
@@ -31,6 +32,10 @@ function Message({ handleRemove, handleReplace, forceKey }) {
 
   const toggleMember = () => {
     setMemberModal(!memberModal);
+  };
+
+  const memberState = () => {
+    setMemberCount(Math.random());
   };
 
   const fetchMessage = async () => {
@@ -139,17 +144,11 @@ function Message({ handleRemove, handleReplace, forceKey }) {
     }
   };
 
-  const channelNumber = JSON.parse(localStorage.getItem("channelMembers"));
-
-  if (channelNumber) {
-    // setMemberCount(channelBody);
-  }
+  const messageState = localStorage.getItem("messageState");
 
   useEffect(() => {
     fetchMessage();
-
-    //   // handleReplace();
-  }, [currentReceiver]);
+  }, [currentReceiver, messageState]);
 
   return (
     <div className="dashboard-ui-main">
@@ -160,6 +159,7 @@ function Message({ handleRemove, handleReplace, forceKey }) {
             <h2 className="receiver-name">{receiver.uid || receiver.name}</h2>
             {(receiver.uid && (
               <button
+                className="receiver-button"
                 onClick={() => {
                   handleRemove();
                 }}
@@ -171,6 +171,7 @@ function Message({ handleRemove, handleReplace, forceKey }) {
                 <div className="channel-receiver">
                   <div>
                     <button
+                      className="receiver-button"
                       onClick={() => {
                         handleRemove();
                       }}
@@ -179,8 +180,13 @@ function Message({ handleRemove, handleReplace, forceKey }) {
                     </button>
                   </div>
                   <div className="channel-detail">
-                    <h2 key={forceKey}>{channelNumber.length}</h2>
+                    <ChannelMember
+                      memberCount={memberCount}
+                      memeberState={memberState}
+                    ></ChannelMember>
                     <AddMember
+                      // memberCount={memberCount}
+                      memberState={memberState}
                       toggleMember={toggleMember}
                       memberModal={memberModal}
                     ></AddMember>
@@ -229,8 +235,9 @@ function Message({ handleRemove, handleReplace, forceKey }) {
               e.preventDefault();
               sendMessage();
               setMessage("");
-              handleReplace();
+              // handleReplace();
               fetchMessage();
+              localStorage.setItem("messageState", Math.random());
             }}
           >
             <input
@@ -239,7 +246,7 @@ function Message({ handleRemove, handleReplace, forceKey }) {
               onChange={(e) => {
                 setMessage(e.target.value);
                 console.log(message);
-                fetchMessage();
+                // fetchMessage();
               }}
               placeholder="Message"
             />

@@ -15,7 +15,7 @@
     display: flex;
     gap: 1rem;
 
-    & button {
+    & .receiver-button {
       height: 3rem;
       width: 3rem;
       border: none;
@@ -32,7 +32,7 @@
 
 .main-messages {
   width: 100%;
-  overflow-y: scroll;
+  overflow-y: auto;
   max-height: 70vh;
   position: absolute;
   bottom: 0;
@@ -80,6 +80,7 @@
   background-color: #222529;
   display: flex;
   align-items: center;
+  // justify-content: space-between;
   gap: 1rem;
 
   .receiver-name {
@@ -97,13 +98,25 @@
 .channel-detail {
   width: 10rem;
   right: 1rem;
-  display: flex;
   position: absolute;
+  display: flex;
+  justify-content: center;
   align-items: center;
+  top: -0.75rem;
+  right: 2rem;
   gap: 1rem;
   margin-right: 3rem;
 
-  & button {
-    width: 20rem;
-  }
+  // & button {
+  //   // background-color: red;
+  //   margin-top: 0.25rem;
+  //   // background-color: transparent;
+  //   font-size: 1.4rem;
+  //   color: #9a999c;
+  //   width: 50rem;
+  //   height: 4rem;
+  //   border: none;
+  //   border-radius: 1rem;
+  //   cursor: pointer;
+  // }
 }

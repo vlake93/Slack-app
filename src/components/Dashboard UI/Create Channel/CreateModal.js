@@ -107,7 +107,6 @@ function CreateModal({ createModal, toggleCreate, forceKey }) {
                           key={forceKey}
                           onClick={() => {
                             chooseMember(user);
-
                             setMember("");
                             console.log("Added", added);
                           }}

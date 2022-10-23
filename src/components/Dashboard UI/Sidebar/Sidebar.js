@@ -5,6 +5,7 @@ import CreateModal from "../Create Channel/CreateModal";
 function Sidebar({ handleReplace }) {
   const [createModal, setCreateModal] = useState(false);
   const [channel, setChannel] = useState({ data: [] });
+  const [channelMembers, setChannelMembers] = useState("");
   const accessToken = localStorage.getItem("access-token");
   const client = localStorage.getItem("client");
   const expiry = localStorage.getItem("expiry");
@@ -42,8 +43,8 @@ function Sidebar({ handleReplace }) {
     localStorage.getItem("channelDependency")
   );
 
-  const fetchChannelDetails = () => {
-    fetch(`http://206.189.91.54/api/v1/channels/${channelID}`, {
+  const fetchChannelDetails = async () => {
+    return await fetch(`http://206.189.91.54/api/v1/channels/${channelID}`, {
       method: "GET",
       headers: {
         "access-token": accessToken,
@@ -72,6 +73,14 @@ function Sidebar({ handleReplace }) {
     })();
   }, [, channelDependency]);
   // ADD on load or add channel only
+
+  // const channelMember = JSON.parse(localStorage.getItem("channelMembers"));
+
+  useEffect(() => {
+    (async () => {
+      await fetchChannelDetails();
+    })();
+  }, [, channelDependency]);
 
   const toggleCreate = () => {
     setCreateModal(!createModal);
