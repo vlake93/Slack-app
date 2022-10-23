@@ -12,10 +12,12 @@ function Sidebar({ handleReplace }) {
   const [createModal, setCreateModal] = useState(false);
   const [channel, setChannel] = useState({ data: [] });
   const [channelDetail, setChannelDetail] = useState("");
+
   const accessToken = localStorage.getItem("access-token");
   const client = localStorage.getItem("client");
   const expiry = localStorage.getItem("expiry");
   const uid = localStorage.getItem("uid");
+  const receiver = JSON.parse(localStorage.getItem("receiver")) || {};
 
   const fetchUserChannels = async () => {
     return await fetch("http://206.189.91.54/api/v1/channels", {
@@ -48,6 +50,8 @@ function Sidebar({ handleReplace }) {
   const channelDependency = JSON.parse(
     localStorage.getItem("channelDependency")
   );
+
+  const messaged = JSON.parse(localStorage.getItem("messagedUsers")) || [];
 
   const fetchChannelDetails = async () => {
     return await fetch(`http://206.189.91.54/api/v1/channels/${channelID}`, {
@@ -97,7 +101,7 @@ function Sidebar({ handleReplace }) {
   return (
     <div className="dashboard-ui-sidebar">
       <div className="dashboard-ui-sidebar-first">
-        <h2>Workspace here</h2>
+        <h2>Vic Slack</h2>
         <img />
       </div>
       <div className="dashboard-ui-sidebar-second">
@@ -149,9 +153,14 @@ function Sidebar({ handleReplace }) {
           </ul>
         </div>
         <h2>Direct messages</h2>
+        <ul>
+          {messaged.map((user) => {
+            return <li>{user.id}</li>;
+          })}
+        </ul>
       </div>
       <div className="dashboard-ui-sidebar-fourth">
-        <h2>Put channel here</h2>
+        <h2>{receiver.uid || receiver.name}</h2>
         <img />
       </div>
     </div>

@@ -4,15 +4,14 @@ import Clock from "../../../assets/clock.png";
 import Slider from "../../../assets/slider.png";
 import Glass from "../../../assets/magnifying.png";
 import Help from "../../../assets/help.png";
-import user from "../../../assets/default.png";
+import user from "../../../assets/main-user.png";
 
-function Search({ handleReplace, forceKey }) {
+function Search({ handleReplace }) {
   const completeUsers = JSON.parse(localStorage.getItem("Users")) || [];
 
   const [search, setSearch] = useState("");
 
   const handleSearch = (e) => {
-    // console.log(search);
     setSearch(e.target.value);
   };
 
@@ -21,16 +20,11 @@ function Search({ handleReplace, forceKey }) {
     setSearch("");
   };
 
-  // useEffect(() => {
-  //   handleReplace();
-  // });
-
   return (
     <div className="dashboard-header">
       <form
         onSubmit={() => {
           handleReplace();
-          // window.location.reload();
         }}
         className="dashboard-search-container"
       >
@@ -70,6 +64,3 @@ function Search({ handleReplace, forceKey }) {
 }
 
 export default Search;
-
-// localStorage.setItem("Users", JSON.stringify([]));
-// localStorage.setItem("Channels", JSON.stringify([]));

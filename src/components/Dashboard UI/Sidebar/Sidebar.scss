@@ -41,7 +41,7 @@
     margin-left: 1rem;
     height: 1.75rem;
     width: 1.75rem;
-    // cursor: pointer;
+    cursor: pointer;
     align-self: center;
     margin-bottom: 0.25rem;
   }
@@ -49,6 +49,8 @@
 
 .dashboard-ui-sidebar-second {
   & .at {
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
     height: 1.5rem;
   }
 
@@ -59,6 +61,7 @@
     gap: 0.5rem;
     font-size: 1.5rem;
     font-weight: 400;
+    cursor: pointer;
   }
 
   & img {

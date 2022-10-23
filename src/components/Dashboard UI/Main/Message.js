@@ -26,12 +26,33 @@ function Message({ handleRemove, forceKey }) {
   const expiry = localStorage.getItem("expiry");
   const uid = localStorage.getItem("uid");
 
+  // const signedIn = JSON.parse(localStorage.getItem("signedIn"));
   const receiver = JSON.parse(localStorage.getItem("receiver")) || {};
 
   const currentReceiver = receiver.id || {};
 
+  const [messagedUsers, setMessageUsers] = useState([]);
+
+  const setMessaged = (user) => {
+    setMessageUsers([...messagedUsers, user]);
+  };
+
+  const receiverPlaceHolder = () => {
+    if (receiver.uid) {
+      return `Message ${receiver.uid}`;
+    } else if (receiver.name) {
+      return `Message ${receiver.name}`;
+    } else {
+      return "Message";
+    }
+  };
+
   const toggleMember = () => {
     setMemberModal(!memberModal);
+  };
+
+  const userImage = () => {
+    // if (signedIn )
   };
 
   const memberState = () => {
@@ -58,7 +79,6 @@ function Message({ handleRemove, forceKey }) {
         })
         .then((data) => {
           setMessageList(data.data);
-
           return data;
         });
     } else {
@@ -80,7 +100,7 @@ function Message({ handleRemove, forceKey }) {
         })
         .then((data) => {
           setMessageList(data.data);
-
+          console.log("data mo to", data.data);
           return data;
         });
     }
@@ -198,6 +218,7 @@ function Message({ handleRemove, forceKey }) {
         <div className="main-messages">
           {presentMessage.map((message) => {
             return (
+              // {(message.sender.email === signedIn && (}
               <div className="main-message">
                 <img src={main} />
                 <div>
@@ -231,9 +252,12 @@ function Message({ handleRemove, forceKey }) {
               e.preventDefault();
               sendMessage();
               setMessage("");
-              // handleReplace();
               fetchMessage();
               localStorage.setItem("messageState", Math.random());
+              localStorage.setItem(
+                "messagedUsers",
+                JSON.stringify([...receiver, receiver])
+              );
             }}
           >
             <input
@@ -242,7 +266,7 @@ function Message({ handleRemove, forceKey }) {
               onChange={(e) => {
                 setMessage(e.target.value);
               }}
-              placeholder="Message"
+              placeholder={receiverPlaceHolder()}
             />
           </form>
           <div>
