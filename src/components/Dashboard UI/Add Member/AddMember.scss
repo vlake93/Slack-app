@@ -16,8 +16,8 @@
   height: 30rem;
   width: 40rem;
   border-radius: 2rem;
-  top: 0;
-  right: -3rem;
+  top: -0.5rem;
+  right: -5rem;
   position: absolute;
 
   & * {
@@ -50,6 +50,7 @@
   border-radius: 0.5rem;
   border: none;
   transition: 0.3s;
+  cursor: pointer;
 
   &:hover {
     background-color: rgb(107, 107, 107);
@@ -60,8 +61,8 @@
   position: absolute;
   top: -35rem;
   left: -116rem;
-  height: 99.4vh;
-  width: 206rem;
+  height: 99.5vh;
+  width: 205.5rem;
   background: rgba(0, 0, 0, 0.6);
   filter: blur(18px);
   -webkit-filter: blur(8px);

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./CreateModal.scss";
 import add from "../../../assets/add.png";
 
-function CreateModal({ createModal, toggleCreate, forceKey }) {
+function CreateModal({ createModal, toggleCreate, forceKey, forceUpdate }) {
   const accessToken = localStorage.getItem("access-token");
   const client = localStorage.getItem("client");
   const expiry = localStorage.getItem("expiry");
@@ -45,7 +45,7 @@ function CreateModal({ createModal, toggleCreate, forceKey }) {
       })
       .then((result) => {
         console.log("result", result);
-
+        forceUpdate();
         return result;
       });
   };
@@ -104,7 +104,6 @@ function CreateModal({ createModal, toggleCreate, forceKey }) {
                     if (user.email.startsWith(member) && member !== "") {
                       return (
                         <li
-                          key={forceKey}
                           onClick={() => {
                             chooseMember(user);
                             setMember("");
@@ -121,10 +120,10 @@ function CreateModal({ createModal, toggleCreate, forceKey }) {
                   onClick={(e) => {
                     e.preventDefault();
                     createChannel();
-                    localStorage.setItem(
-                      "channelDependency",
-                      JSON.stringify(Math.random())
-                    );
+                    // localStorage.setItem(
+                    //   "channelDependency",
+                    //   JSON.stringify(Math.random())
+                    // );
                     setAdded([channelCreator]);
                     toggleCreate();
                   }}

@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useReducer } from "react";
 import "./Sidebar.scss";
 import CreateModal from "../Create Channel/CreateModal";
 
 function Sidebar({ handleReplace }) {
+  const [reducerValue, forceUpdate] = useReducer((x) => x + 1, 0);
   const [createModal, setCreateModal] = useState(false);
   const [channel, setChannel] = useState({ data: [] });
   const [channelDetail, setChannelDetail] = useState("");
@@ -58,6 +59,7 @@ function Sidebar({ handleReplace }) {
         return response.json();
       })
       .then((result) => {
+        forceUpdate();
         localStorage.setItem(
           "channelMembers",
           JSON.stringify(result.data.channel_members)
@@ -71,7 +73,7 @@ function Sidebar({ handleReplace }) {
     (async () => {
       await fetchUserChannels();
     })();
-  }, [, channelDetail, channelDependency]);
+  }, [, channelDetail, channelDependency, reducerValue]);
 
   useEffect(() => {
     (async () => {
@@ -118,6 +120,7 @@ function Sidebar({ handleReplace }) {
             <CreateModal
               createModal={createModal}
               toggleCreate={toggleCreate}
+              forceUpdate={forceUpdate}
             ></CreateModal>
 
             {channel.data.map((channel) => {
