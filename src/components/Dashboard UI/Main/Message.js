@@ -184,6 +184,7 @@ function Message({ handleRemove, forceKey }) {
                       memberCount={memberCount}
                       memeberState={memberState}
                     ></ChannelMember>
+                    <img className="channel-detail-line" src={line} />
                     <AddMember
                       // memberCount={memberCount}
                       memberState={memberState}

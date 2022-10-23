@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import "./AddMember.scss";
+import add from "../../../assets/add.png";
 
-function AddMember({ toggleMember, memberModal, memberState }) {
+function AddMember({ toggleMember, memberModal }) {
   const [member, setMember] = useState("");
   const [added, setAdded] = useState({});
   const accessToken = localStorage.getItem("access-token");
@@ -60,7 +61,7 @@ function AddMember({ toggleMember, memberModal, memberState }) {
           console.log(member);
         }}
       >
-        <img src="" />
+        <img src={add} />
         Add member
       </button>
       {memberModal && (
@@ -104,16 +105,12 @@ function AddMember({ toggleMember, memberModal, memberState }) {
                 addMember();
                 setAdded("");
                 toggleMember();
-                memberState();
               }}
             >
               Add member
             </button>
           </form>
-          {/* //{" "} */}
         </div>
-        //   </div>
-        // </div>
       )}
     </>
   );

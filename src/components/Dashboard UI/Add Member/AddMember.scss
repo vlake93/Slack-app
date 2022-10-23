@@ -10,9 +10,9 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 4rem;
+  gap: 2.5rem;
   padding: 2rem;
-  background-color: #0e0f10;
+  background-color: #1a1b1d;
   height: 30rem;
   width: 40rem;
   border-radius: 2rem;
@@ -24,9 +24,16 @@
     z-index: 11;
   }
 
+  & input {
+    height: 3rem;
+    border-radius: 0.5rem;
+    outline: none;
+  }
+
   & label {
     font-size: 1.5rem;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 2rem;
@@ -35,15 +42,25 @@
 
 .add-member-button {
   background-color: gray;
+  color: white;
+  flex-shrink: 0;
   height: 4rem;
-  width: 20rem;
+  width: 10rem;
+  margin-bottom: 3rem;
+  border-radius: 0.5rem;
+  border: none;
+  transition: 0.3s;
+
+  &:hover {
+    background-color: rgb(107, 107, 107);
+  }
 }
 
 .add-overlay {
   position: absolute;
   top: -35rem;
-  left: -120rem;
-  height: 99.5vh;
+  left: -116rem;
+  height: 99.4vh;
   width: 206rem;
   background: rgba(0, 0, 0, 0.6);
   filter: blur(18px);
@@ -65,5 +82,25 @@
 
   & li:hover {
     background-color: gray;
+  }
+}
+
+.channel-add {
+  background-color: transparent;
+  // background-color: red;
+  color: #9a999c;
+  // text-transform: uppercase;
+  font-weight: 600;
+  display: flex;
+  flex-shrink: 0;
+  justify-content: center;
+  align-items: center;
+  gap: 0.25rem;
+  border: none;
+  width: 11rem;
+  cursor: pointer;
+
+  & img {
+    height: 2rem;
   }
 }

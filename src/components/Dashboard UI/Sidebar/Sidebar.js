@@ -5,7 +5,7 @@ import CreateModal from "../Create Channel/CreateModal";
 function Sidebar({ handleReplace }) {
   const [createModal, setCreateModal] = useState(false);
   const [channel, setChannel] = useState({ data: [] });
-  const [channelMembers, setChannelMembers] = useState("");
+  const [channelDetail, setChannelDetail] = useState("");
   const accessToken = localStorage.getItem("access-token");
   const client = localStorage.getItem("client");
   const expiry = localStorage.getItem("expiry");
@@ -71,10 +71,7 @@ function Sidebar({ handleReplace }) {
     (async () => {
       await fetchUserChannels();
     })();
-  }, [, channelDependency]);
-  // ADD on load or add channel only
-
-  // const channelMember = JSON.parse(localStorage.getItem("channelMembers"));
+  }, [, channelDetail, channelDependency]);
 
   useEffect(() => {
     (async () => {
@@ -84,6 +81,10 @@ function Sidebar({ handleReplace }) {
 
   const toggleCreate = () => {
     setCreateModal(!createModal);
+  };
+
+  const handlerChannelDetail = () => {
+    setChannelDetail(Math.random());
   };
 
   return (
@@ -113,7 +114,7 @@ function Sidebar({ handleReplace }) {
       <div className="dashboard-ui-sidebar-third">
         <div>
           <h2>Channels</h2>
-          <ul className="channel-list">
+          <ul key={channelDetail} className="channel-list">
             <CreateModal
               createModal={createModal}
               toggleCreate={toggleCreate}
@@ -127,6 +128,7 @@ function Sidebar({ handleReplace }) {
                       handleChannel(channel);
                       fetchChannelDetails();
                       handleReplace();
+                      handlerChannelDetail();
                     }}
                     className="channel"
                   >
