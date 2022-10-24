@@ -40,19 +40,20 @@
 }
 
 .main-message {
-  // width: 50rem;
-  // background-color: #222529;
-  // justify-content: center;
   align-items: center;
   display: flex;
   padding: 1rem;
+
+  &:hover {
+    background-color: #222529;
+  }
 
   & div {
     margin-left: 0.5rem;
   }
 
   & img {
-    height: 2rem;
+    height: 3rem;
     padding: 0;
   }
   & h2 {
@@ -111,22 +112,33 @@
     height: 3rem;
     width: 5rem;
   }
-
-  // & button {
-  //   // background-color: red;
-  //   margin-top: 0.25rem;
-  //   // background-color: transparent;
-  //   font-size: 1.4rem;
-  //   color: #9a999c;
-  //   width: 50rem;
-  //   height: 4rem;
-  //   border: none;
-  //   border-radius: 1rem;
-  //   cursor: pointer;
-  // }
 }
 
 .message-date {
   display: flex;
   gap: 1rem;
+}
+
+.message-composer-lower {
+  padding: 1rem;
+  display: flex;
+  gap: 1.1rem;
+  align-items: center;
+
+  & .line {
+    height: 2.2rem;
+  }
+
+  & .ordered {
+    height: 1.25rem;
+  }
+  & img {
+    height: 2rem;
+    cursor: pointer;
+    // width: 1.5rem;
+  }
+
+  & .at {
+    height: 1.5rem;
+  }
 }

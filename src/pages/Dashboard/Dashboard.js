@@ -44,10 +44,8 @@ function Dashboard() {
   };
 
   useEffect(() => {
-    //another way
     (async () => {
       const userData = await fetchUsers();
-      console.log("this is", userData);
     })();
   });
 

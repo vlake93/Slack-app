@@ -57,7 +57,6 @@ function SignIn() {
         }
       })
       .then((result) => {
-        // console.log("signin", result.data.id);
         if (result.success !== false) {
           addCredentials("signedIn", JSON.stringify(result.data));
           navigate("/client");
@@ -68,10 +67,6 @@ function SignIn() {
         }
       });
   };
-
-  // const signedIn = JSON.parse(localStorage.getItem("signedIn"));
-
-  // if ()
 
   return (
     <div className="signin-page">

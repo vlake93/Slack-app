@@ -16,8 +16,6 @@ function SignUpPage() {
 
   const handleRegister = (e) => {
     e.preventDefault();
-    // setEmail("");
-    // setPassword("");
 
     const credentials = {
       email: email,

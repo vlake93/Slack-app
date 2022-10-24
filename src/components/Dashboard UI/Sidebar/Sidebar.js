@@ -18,6 +18,43 @@ function Sidebar({ handleReplace }) {
   const expiry = localStorage.getItem("expiry");
   const uid = localStorage.getItem("uid");
   const receiver = JSON.parse(localStorage.getItem("receiver")) || {};
+  const signedIn = JSON.parse(localStorage.getItem("signedIn"));
+  const localMessaged =
+    JSON.parse(localStorage.getItem(`${signedIn.uid}messaged`)) || [];
+  const channelID = JSON.parse(localStorage.getItem("channelID"));
+  const channelDependency = JSON.parse(
+    localStorage.getItem("channelDependency")
+  );
+
+  //////////////////////////////////////////////////////////////
+  // const sample = [
+  //   { id: 345, name: "john" },
+  //   { id: 234, name: "smith" },
+  //   { id: 789, name: "hey" },
+  //   { id: 345, name: "bill" },
+  //   { id: 345, name: "doe" },
+  //   { id: 112, name: "jane" },
+  // ];
+
+  // const yeah = sample.filter((user) => {
+  //   sample.map((id) => {
+  //
+  //   });
+  // });
+  //////////////////////////////////////////////////////////
+
+  const toggleCreate = () => {
+    setCreateModal(!createModal);
+  };
+
+  const handlerChannelDetail = () => {
+    setChannelDetail(Math.random());
+  };
+
+  const handleChannel = (user) => {
+    localStorage.setItem("receiver", JSON.stringify(user));
+    localStorage.setItem("channelID", JSON.stringify(user.id));
+  };
 
   const fetchUserChannels = async () => {
     return await fetch("http://206.189.91.54/api/v1/channels", {
@@ -41,18 +78,6 @@ function Sidebar({ handleReplace }) {
       });
   };
 
-  const handleChannel = (user) => {
-    localStorage.setItem("receiver", JSON.stringify(user));
-    localStorage.setItem("channelID", JSON.stringify(user.id));
-  };
-
-  const channelID = JSON.parse(localStorage.getItem("channelID"));
-  const channelDependency = JSON.parse(
-    localStorage.getItem("channelDependency")
-  );
-
-  const messaged = JSON.parse(localStorage.getItem("message")) || [];
-
   const fetchChannelDetails = async () => {
     return await fetch(`http://206.189.91.54/api/v1/channels/${channelID}`, {
       method: "GET",
@@ -69,11 +94,6 @@ function Sidebar({ handleReplace }) {
       })
       .then((result) => {
         forceUpdate();
-        localStorage.setItem(
-          "channelMembers",
-          JSON.stringify(result.data.channel_members)
-        );
-        console.log(result.data.channel_members);
         return result;
       });
   };
@@ -89,14 +109,6 @@ function Sidebar({ handleReplace }) {
       await fetchChannelDetails();
     })();
   }, [, channelDependency]);
-
-  const toggleCreate = () => {
-    setCreateModal(!createModal);
-  };
-
-  const handlerChannelDetail = () => {
-    setChannelDetail(Math.random());
-  };
 
   return (
     <div className="dashboard-ui-sidebar">
@@ -154,11 +166,10 @@ function Sidebar({ handleReplace }) {
         </div>
         <h2>Direct messages</h2>
         <ul>
-          {messaged.map((user) => {
+          {localMessaged.map((user) => {
             return <li>{user.uid}</li>;
           })}
         </ul>
-        {/* onClick add setlocalstorage receiver */}
       </div>
       <div className="dashboard-ui-sidebar-fourth">
         <h2>{receiver.uid || receiver.name}</h2>

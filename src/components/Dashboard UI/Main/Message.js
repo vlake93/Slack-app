@@ -12,6 +12,12 @@ import code from "../../../assets/code.png";
 import LogoutModal from "../Logout Modal/LogoutModal";
 import main from "../../../assets/main-user.png";
 import sub from "../../../assets/receiver.png";
+import add2 from "../../../assets/add2.png";
+import video from "../../../assets/video.png";
+import mic from "../../../assets/mic.png";
+import happy from "../../../assets/happy.png";
+import font from "../../../assets/font.png";
+import at from "../../../assets/at.png";
 import AddMember from "../Add Member/AddMember";
 import ChannelMember from "../Channel Member/ChannelMember";
 
@@ -20,17 +26,16 @@ function Message({ handleRemove, forceKey }) {
   const [messageList, setMessageList] = useState("");
   const [memberCount, setMemberCount] = useState("");
   const [memberModal, setMemberModal] = useState(false);
-  const [messagedUsers, setMessageUsers] = useState([]);
-
   const accessToken = localStorage.getItem("access-token");
   const client = localStorage.getItem("client");
   const expiry = localStorage.getItem("expiry");
   const uid = localStorage.getItem("uid");
-  const signedIn = JSON.parse(localStorage.getItem("signedIn"));
   const receiver = JSON.parse(localStorage.getItem("receiver")) || {};
   const messageState = localStorage.getItem("messageState");
   const currentReceiver = receiver.id || {};
   const presentMessage = messageList || [];
+  // const [messagedUsers, setMessageUsers] = useState([]);
+  // const signedIn = JSON.parse(localStorage.getItem("signedIn"));
 
   const userBody = {
     receiver_id: receiver.id,
@@ -44,14 +49,17 @@ function Message({ handleRemove, forceKey }) {
     body: message,
   };
 
-  ///////////////// filter so no has same id
-  const setMessaged = (user) => {
-    messagedUsers.filter((messaged) => {
-      if (!messaged.id.includes(user.id)) {
-        return setMessageUsers([...messagedUsers, user]);
-      }
-    });
-  };
+  // const setMessaged = (user) => {
+  //   setMessageUsers([...messagedUsers, user]);
+  //   // const noRepeatMessaged = messagedUsers.filter((user) => {
+  //   //   // if ()
+  //   // });
+  //   localStorage.setItem(
+  //     `${signedIn.uid}messaged`,
+  //     JSON.stringify(messagedUsers)
+  //   );
+  //   // );
+  // };
 
   const receiverPlaceHolder = () => {
     if (receiver.uid) {
@@ -229,7 +237,6 @@ function Message({ handleRemove, forceKey }) {
         <div className="main-messages">
           {presentMessage.map((message) => {
             return (
-              // {(message.sender.email === signedIn && (}
               <div className="main-message">
                 <img
                   src={userImage(
@@ -273,11 +280,7 @@ function Message({ handleRemove, forceKey }) {
               setMessage("");
               fetchMessage();
               localStorage.setItem("messageState", Math.random());
-              setMessaged(receiver);
-              localStorage.setItem(
-                `${signedIn}`,
-                JSON.stringify(messagedUsers)
-              );
+              // setMessaged(receiver);
             }}
           >
             <input
@@ -287,19 +290,17 @@ function Message({ handleRemove, forceKey }) {
                 setMessage(e.target.value);
               }}
               placeholder={receiverPlaceHolder()}
-              // onSubmit={() => {
-              //   setMessaged(receiver);
-              //   localStorage.setItem("message", JSON.stringify(messagedUsers));
-              // }}
             />
           </form>
-          <div>
-            <img />
-            <img />
-            <img />
-            <img />
-            <img />
-            <img />
+          <div className="message-composer-lower">
+            <img src={add2} />
+            <img src={line} />
+            <img src={video} />
+            <img src={mic} />
+            <img src={line} />
+            <img src={happy} />
+            <img className="at" src={at} />
+            <img src={font} />
           </div>
         </div>
       </div>
