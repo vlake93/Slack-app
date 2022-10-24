@@ -10,15 +10,15 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    // background-color: #222529;
     height: 3rem;
     display: flex;
     gap: 1rem;
 
     & .receiver-button {
-      height: 3rem;
-      width: 3rem;
+      height: 2.5rem;
+      width: 1rem;
       border: none;
+      display: flex;
       background-color: transparent;
       color: white;
       cursor: pointer;
@@ -81,7 +81,7 @@
   background-color: #222529;
   display: flex;
   align-items: center;
-  // justify-content: space-between;
+
   gap: 1rem;
 
   .receiver-name {

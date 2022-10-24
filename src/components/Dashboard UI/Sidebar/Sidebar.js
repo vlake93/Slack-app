@@ -143,7 +143,6 @@ function Sidebar({ handleReplace }) {
               toggleCreate={toggleCreate}
               forceUpdate={forceUpdate}
             ></CreateModal>
-
             {channel.data.map((channel) => {
               return (
                 <li>

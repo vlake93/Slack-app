@@ -1,18 +1,16 @@
 import React from "react";
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import "./SignIn.scss";
 import Logo from "../../assets/slack.svg";
 import Apple from "../../assets/apple.png";
 import Google from "../../assets/google sign.png";
 import Globe from "../../assets/globe.png";
 import Down from "../../assets/down2.png";
 import Sparkle from "../../assets/sparkle.png";
-import "./SignIn.scss";
-import { Link, useNavigate } from "react-router-dom";
 
 function SignIn() {
-  if (!localStorage.getItem("Channels")) {
-    localStorage.setItem("Channels", JSON.stringify({ data: [] }));
-  }
+  let navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -21,8 +19,6 @@ function SignIn() {
   const addCredentials = (key, value) => {
     localStorage.setItem(key, value);
   };
-
-  let navigate = useNavigate();
 
   const handleSignIn = (e) => {
     e.preventDefault();
