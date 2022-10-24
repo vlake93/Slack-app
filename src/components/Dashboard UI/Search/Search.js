@@ -7,7 +7,9 @@ import Help from "../../../assets/help.png";
 import user from "../../../assets/main-user.png";
 
 function Search({ handleReplace }) {
-  const completeUsers = JSON.parse(localStorage.getItem("Users")) || [];
+  const completeUsers = JSON.parse(localStorage.getItem("Users")) || {
+    data: [],
+  };
 
   const [search, setSearch] = useState("");
 
@@ -40,7 +42,6 @@ function Search({ handleReplace }) {
             if (user.email.startsWith(search) && search !== "") {
               return (
                 <li
-                  // key={forceKey}
                   onClick={() => {
                     handleReceiver(user);
                     handleReplace();

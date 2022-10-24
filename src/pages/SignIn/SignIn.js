@@ -10,10 +10,6 @@ import "./SignIn.scss";
 import { Link, useNavigate } from "react-router-dom";
 
 function SignIn() {
-  // if (!localStorage.getItem("Users")) {
-  //   localStorage.setItem("Users", JSON.parse([]));
-  // }
-
   if (!localStorage.getItem("Channels")) {
     localStorage.setItem("Channels", JSON.stringify({ data: [] }));
   }
@@ -27,15 +23,6 @@ function SignIn() {
   };
 
   let navigate = useNavigate();
-
-  // const routeChange = () => {
-  //   let path = `/client`;
-  //   navigate(path);
-  // };
-
-  // const preventDefault = (e) => {
-  //   e.preventDefault();
-  // };
 
   const handleSignIn = (e) => {
     e.preventDefault();
@@ -66,7 +53,7 @@ function SignIn() {
           });
           return response.json();
         } else {
-          setError("Username/Password not found");
+          setError("Username not found");
         }
       })
       .then((result) => {
@@ -77,31 +64,21 @@ function SignIn() {
         }
         if (result.status !== "error") {
         } else {
-          setError("Username/Password not found");
+          setError("Username not found");
         }
       });
-
-    // const accessToken = localStorage.getItem("access-token");
-    // const client = localStorage.getItem("client");
-    // const expiry = localStorage.getItem("expiry");
-    // const uid = localStorage.getItem("uid");
-
-    // if (localStorage.getItem("access-token")) {
-    //   routeChange();
-    // } else {
-    //   // preventDefault();
-    //   setError("Incorrect email/password");
-    // }
   };
 
-  const signedIn = JSON.parse(localStorage.getItem("signedIn"));
+  // const signedIn = JSON.parse(localStorage.getItem("signedIn"));
 
   // if ()
 
   return (
     <div className="signin-page">
       <div className="signin-logo-container">
-        <img className="signin-logo" src={Logo} />
+        <Link to="/">
+          <img className="signin-logo" src={Logo} />
+        </Link>
         <div className="new-slack">
           <p className="new-slack-text">New to Slack?</p>
           <Link to="/signup" className="new-slack-link">
@@ -127,7 +104,7 @@ function SignIn() {
         <hr></hr>
       </div>
       <form>
-        <h1>{error}</h1>
+        <h2 className="signin-error">{error}</h2>
         <input
           type="text"
           className="signin-email"

@@ -50,13 +50,15 @@ function SignUpPage() {
 
   return (
     <div className="signup-page">
-      <img className="signup-logo" src={Logo} />
+      <Link to="/">
+        <img className="signup-logo" src={Logo} />
+      </Link>
       <h1>First, enter your email</h1>
       <p>
         We suggest using the <span>email address you use at work</span>
       </p>
       <form>
-        <h1>{error}</h1>
+        <h2 className="signup-error">{error}</h2>
         <input
           type="text"
           className="signup-email"

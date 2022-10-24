@@ -11,7 +11,7 @@ import blockquote from "../../../assets/blockquote.png";
 import code from "../../../assets/code.png";
 import LogoutModal from "../Logout Modal/LogoutModal";
 import main from "../../../assets/main-user.png";
-// import receiver from "../../../assets/receiver.png";
+import sub from "../../../assets/receiver.png";
 import AddMember from "../Add Member/AddMember";
 import ChannelMember from "../Channel Member/ChannelMember";
 
@@ -20,24 +20,35 @@ function Message({ handleRemove, forceKey }) {
   const [messageList, setMessageList] = useState("");
   const [memberCount, setMemberCount] = useState("");
   const [memberModal, setMemberModal] = useState(false);
+  const [messagedUsers, setMessageUsers] = useState([]);
 
   const accessToken = localStorage.getItem("access-token");
   const client = localStorage.getItem("client");
   const expiry = localStorage.getItem("expiry");
   const uid = localStorage.getItem("uid");
-
-  // const signedIn = JSON.parse(localStorage.getItem("signedIn"));
+  const signedIn = JSON.parse(localStorage.getItem("signedIn"));
   const receiver = JSON.parse(localStorage.getItem("receiver")) || {};
-
+  const messageState = localStorage.getItem("messageState");
   const currentReceiver = receiver.id || {};
+  const presentMessage = messageList || [];
 
-  const [messagedUsers, setMessageUsers] = useState([]);
+  const userBody = {
+    receiver_id: receiver.id,
+    receiver_class: "User",
+    body: message,
+  };
+
+  const channelBody = {
+    receiver_id: receiver.id,
+    receiver_class: "Channel",
+    body: message,
+  };
 
   ///////////////// filter so no has same id
   const setMessaged = (user) => {
-    messagedUsers.map((messaged) => {
+    messagedUsers.filter((messaged) => {
       if (!messaged.id.includes(user.id)) {
-        setMessageUsers([...messagedUsers, user]);
+        return setMessageUsers([...messagedUsers, user]);
       }
     });
   };
@@ -56,8 +67,20 @@ function Message({ handleRemove, forceKey }) {
     setMemberModal(!memberModal);
   };
 
-  const userImage = () => {
-    // if (signedIn )
+  const userImage = (id, messaged) => {
+    if (id === messaged) {
+      return sub;
+    } else {
+      return main;
+    }
+  };
+
+  const userName = (id, sender) => {
+    if (id === sender) {
+      return sender;
+    } else {
+      return "You";
+    }
   };
 
   const memberState = () => {
@@ -105,25 +128,10 @@ function Message({ handleRemove, forceKey }) {
         })
         .then((data) => {
           setMessageList(data.data);
-          console.log("data mo to", data.data);
           return data;
         });
     }
   };
-
-  const userBody = {
-    receiver_id: receiver.id,
-    receiver_class: "User",
-    body: message,
-  };
-
-  const channelBody = {
-    receiver_id: receiver.id,
-    receiver_class: "Channel",
-    body: message,
-  };
-
-  const presentMessage = messageList || [];
 
   const sendMessage = () => {
     if (receiver.owner_id) {
@@ -164,8 +172,6 @@ function Message({ handleRemove, forceKey }) {
         });
     }
   };
-
-  const messageState = localStorage.getItem("messageState");
 
   useEffect(() => {
     fetchMessage();
@@ -225,9 +231,17 @@ function Message({ handleRemove, forceKey }) {
             return (
               // {(message.sender.email === signedIn && (}
               <div className="main-message">
-                <img src={main} />
+                <img
+                  src={userImage(
+                    parseInt(receiver.id),
+                    parseInt(message.sender.id)
+                  )}
+                />
                 <div>
-                  <h3>{message.sender.email}</h3>
+                  <div className="message-date">
+                    <h3>{userName(receiver.uid, message.sender.uid)}</h3>
+                    <h3>{message.created_at}</h3>
+                  </div>
                   <h2>{message.body}</h2>
                 </div>
               </div>
@@ -260,7 +274,10 @@ function Message({ handleRemove, forceKey }) {
               fetchMessage();
               localStorage.setItem("messageState", Math.random());
               setMessaged(receiver);
-              localStorage.setItem("message", JSON.stringify(messagedUsers));
+              localStorage.setItem(
+                `${signedIn}`,
+                JSON.stringify(messagedUsers)
+              );
             }}
           >
             <input
