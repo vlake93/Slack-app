@@ -11,7 +11,7 @@ import blockquote from "../../../assets/blockquote.png";
 import code from "../../../assets/code.png";
 import LogoutModal from "../Logout Modal/LogoutModal";
 import main from "../../../assets/main-user.png";
-import receiver from "../../../assets/receiver.png";
+// import receiver from "../../../assets/receiver.png";
 import AddMember from "../Add Member/AddMember";
 import ChannelMember from "../Channel Member/ChannelMember";
 
@@ -33,8 +33,13 @@ function Message({ handleRemove, forceKey }) {
 
   const [messagedUsers, setMessageUsers] = useState([]);
 
+  ///////////////// filter so no has same id
   const setMessaged = (user) => {
-    setMessageUsers([...messagedUsers, user]);
+    messagedUsers.map((messaged) => {
+      if (!messaged.id.includes(user.id)) {
+        setMessageUsers([...messagedUsers, user]);
+      }
+    });
   };
 
   const receiverPlaceHolder = () => {
@@ -254,10 +259,8 @@ function Message({ handleRemove, forceKey }) {
               setMessage("");
               fetchMessage();
               localStorage.setItem("messageState", Math.random());
-              localStorage.setItem(
-                "messagedUsers",
-                JSON.stringify([...receiver, receiver])
-              );
+              setMessaged(receiver);
+              localStorage.setItem("message", JSON.stringify(messagedUsers));
             }}
           >
             <input
@@ -267,6 +270,10 @@ function Message({ handleRemove, forceKey }) {
                 setMessage(e.target.value);
               }}
               placeholder={receiverPlaceHolder()}
+              // onSubmit={() => {
+              //   setMessaged(receiver);
+              //   localStorage.setItem("message", JSON.stringify(messagedUsers));
+              // }}
             />
           </form>
           <div>

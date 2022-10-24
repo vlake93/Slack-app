@@ -51,7 +51,7 @@ function Sidebar({ handleReplace }) {
     localStorage.getItem("channelDependency")
   );
 
-  const messaged = JSON.parse(localStorage.getItem("messagedUsers")) || [];
+  const messaged = JSON.parse(localStorage.getItem("message")) || [];
 
   const fetchChannelDetails = async () => {
     return await fetch(`http://206.189.91.54/api/v1/channels/${channelID}`, {
@@ -155,9 +155,10 @@ function Sidebar({ handleReplace }) {
         <h2>Direct messages</h2>
         <ul>
           {messaged.map((user) => {
-            return <li>{user.id}</li>;
+            return <li>{user.uid}</li>;
           })}
         </ul>
+        {/* onClick add setlocalstorage receiver */}
       </div>
       <div className="dashboard-ui-sidebar-fourth">
         <h2>{receiver.uid || receiver.name}</h2>
